@@ -8,7 +8,7 @@
             "script": "build",
             "group": { "isDefault": true, "kind": "build" },
 
-            "problemMatcher": []
+            "problemMatcher": ["$tsc"]
         }
     ]
 }
