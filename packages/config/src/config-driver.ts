@@ -1,9 +1,11 @@
-import { createEnvVariableDriver } from './drivers/env-driver'
-import { createJsonFileVariableDriver } from './drivers/json-file-driver'
+import { environmentConfigDriver } from './drivers/env-driver'
+import { jsonFileConfigDriver } from './drivers/json-file-driver'
 import { EtriganError } from '@etrigan/core'
+import { ConfigMap } from './load-config'
 
 export interface ConfigDriver {
-    [key: string]: string | undefined
+    protocol: string
+    fromConnectionString(connectionString: string): Promise<ConfigMap>
 }
 
 export class ConfigDriverError extends EtriganError {
@@ -16,8 +18,16 @@ export class ConfigDriverError extends EtriganError {
     }
 }
 
+const configDrivers: ConfigDriver[] =
+    (global as any)['additional_config_drivers'] ||
+    ((global as any)['additional_config_drivers'] = [environmentConfigDriver, jsonFileConfigDriver])
+
+export function registerDriver(configDriver: ConfigDriver) {
+    configDrivers.push(configDriver)
+}
+
 /**
- * Creates a config driver
+ * Gets config for a config connection string
  *
  * Driver connection string format:
  * env://ENV_NAME;ALIASED_ENV_NAME:aliasedName
@@ -25,7 +35,7 @@ export class ConfigDriverError extends EtriganError {
  * json:///absolute/path/to/file.json
  * json://relative/path/toconfig.json
  */
-export const createDriver = (configConnectionString: string) => {
+export async function getConfigRecords(configConnectionString: string) {
     if (!configConnectionString) {
         throw new ConfigDriverError('No configuration string provided')
     }
@@ -36,27 +46,19 @@ export const createDriver = (configConnectionString: string) => {
         )
     }
 
-    const [driver, driverConfig] = split
+    const [driverProtocol, driverConfig] = split
     try {
-        switch (driver) {
-            case 'env': {
-                return createEnvVariableDriver(driverConfig)
-            }
-
-            case 'json':
-                return createJsonFileVariableDriver(driverConfig)
-
-            case 'ssm':
-                return require('./drivers/aws-ssm-driver').createParameterStoreDriver(driverConfig)
-
-            default:
-                return unsupportedDriver(driver)
+        const driver = configDrivers.find(driver => driver.protocol === driverProtocol)
+        if (!driver) {
+            return unsupportedDriver(driverProtocol)
         }
+        const values = await driver.fromConnectionString(driverConfig)
+        return values
     } catch (err) {
         if (ConfigDriverError.isInstance(err)) {
             throw err
         }
-        throw new ConfigDriverError(`Cannot load ${driver} driver`, err)
+        throw new ConfigDriverError(`Cannot load ${driverProtocol} driver`, err)
     }
 }
 

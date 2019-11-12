@@ -3,3 +3,4 @@ dist
 tsconfig.tsbuildinfo
 
 **/src/*.js
+.DS_Store

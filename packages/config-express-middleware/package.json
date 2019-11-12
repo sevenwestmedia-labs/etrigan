@@ -1,11 +1,13 @@
 {
-    "name": "@etrigan/config",
+    "name": "@etrigan/config-express-middleware",
     "version": "0.0.0",
-    "description": "Type safe config loader for NodeJS",
+    "description": "Etrigan Config express middleware",
     "main": "dist/index.js",
     "author": "Seven West Media WA",
     "license": "MIT",
+    "dependencies": {},
     "peerDependencies": {
+        "express": "^4.17.1",
         "tslib": "^1.10.0"
     }
 }

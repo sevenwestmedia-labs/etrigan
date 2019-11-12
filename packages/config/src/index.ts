@@ -1,6 +1,5 @@
-export { loadConfig, ConfigValidationError } from './load-config'
-export { createDriver, ConfigDriver, ConfigDriverError } from './config-driver'
-export { bootstrapConfig } from './config-bootstrapper'
+export { loadConfig, ConfigValidationError, ValidateConfigItem, ConfigMap } from './load-config'
+export { getConfigRecords, ConfigDriver, ConfigDriverError, registerDriver } from './config-driver'
 
-export { createEnvVariableDriver, createEnvDriverConnectionString } from './drivers/env-driver'
-export { createJsonFileVariableDriver } from './drivers/json-file-driver'
+export { environmentConfigDriver, createEnvDriverConnectionString } from './drivers/env-driver'
+export { jsonFileConfigDriver } from './drivers/json-file-driver'

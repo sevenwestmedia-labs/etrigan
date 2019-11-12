@@ -9,10 +9,11 @@ export class ConfigValidationError extends EtriganError {
 
 export type ValidateConfigItem = (
     value: any,
-) => {
-    valid: boolean
-    parsedValue?: any
-}
+) =>
+    | {
+          valid: false
+      }
+    | { valid: true; parsedValue: any }
 
 export type SupportedValidations = {
     'required-boolean': ValidateConfigItem
@@ -87,7 +88,7 @@ const validationItems: SupportedValidations = {
     },
     'optional-int': value => {
         if (value === undefined) {
-            return { valid: true }
+            return { valid: true, parsedValue: undefined }
         }
         if (typeof value === 'number') {
             return {
@@ -128,10 +129,10 @@ const validationItems: SupportedValidations = {
 
 export type ValidationType = ValidateConfigItem | keyof SupportedValidations
 
-export type ConfigMap = { [key: string]: any }
+export type ConfigMap = Record<string, any>
 
 export function loadConfig<TConfig extends ConfigMap>(options: {
-    driver: ConfigDriver
+    values: ConfigMap
     defaults?: Partial<TConfig>
     /**
      * Validates the resulting config *after* defaults applied
@@ -143,7 +144,7 @@ export function loadConfig<TConfig extends ConfigMap>(options: {
     // any is due to typescript spread of generic limitations
     const config: TConfig = {
         ...((options.defaults as any) || {}),
-        ...options.driver,
+        ...options.values,
     }
 
     // validateConfig requires all keys to be defined

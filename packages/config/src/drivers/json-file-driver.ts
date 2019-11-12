@@ -1,18 +1,15 @@
-import { ConfigDriver } from '../'
 import { readFile } from 'fs'
 import { resolve } from 'path'
+import { promisify } from 'util'
 
-export async function createJsonFileVariableDriver(path: string): Promise<ConfigDriver> {
-    const file = await new Promise<Buffer>((yea, reject) =>
-        readFile(resolve(path), (err, data) => {
-            if (err) {
-                reject(err)
-            } else {
-                yea(data)
-            }
-        }),
-    )
-    const fileContents = file.toString()
-
-    return JSON.parse(fileContents)
+export const jsonFileConfigDriver = {
+    protocol: 'json',
+    async read<T>(file: string) {
+        return await jsonFileConfigDriver.fromConnectionString(file)
+    },
+    async fromConnectionString(config: string) {
+        const file = await promisify(readFile)(resolve(config))
+        const fileContents = file.toString()
+        return JSON.parse(fileContents)
+    },
 }

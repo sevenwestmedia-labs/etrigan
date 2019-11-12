@@ -5,6 +5,13 @@
         },
         {
             "path": "./packages/config"
+        },
+        {
+            "path": "./packages/config-driver-ssm"
+        },
+        {
+            "path": "./packages/config-express-middleware"
         }
-    ]
+    ],
+    "files": []
 }
