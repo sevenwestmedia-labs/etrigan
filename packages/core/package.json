@@ -1,11 +1,11 @@
 {
-    "name": "@etrigan/core",
-    "version": "0.0.0",
-    "description": "Etrigan core",
-    "main": "dist/index.js",
-    "author": "Seven West Media WA",
-    "license": "MIT",
-    "peerDependencies": {
-        "tslib": "^1.10.0"
-    }
+  "name": "@etrigan/core",
+  "version": "0.1.0",
+  "description": "Etrigan core",
+  "main": "dist/index.js",
+  "author": "Seven West Media WA",
+  "license": "MIT",
+  "peerDependencies": {
+    "tslib": "^1.10.0"
+  }
 }
