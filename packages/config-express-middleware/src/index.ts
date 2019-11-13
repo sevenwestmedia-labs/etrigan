@@ -1,6 +1,7 @@
 import express from 'express'
 
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace Etrigan {
         export interface Config {
             [key: string]: any

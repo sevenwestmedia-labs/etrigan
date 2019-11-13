@@ -1,5 +1,5 @@
 import { EtriganError } from '@etrigan/core'
-import { ConfigDriver, ConfigMap } from '@etrigan/config'
+import { ConfigMap } from '@etrigan/config'
 import { Logger, noopLogger } from 'typescript-log'
 
 import SSM from 'aws-sdk/clients/ssm'

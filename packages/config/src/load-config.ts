@@ -1,5 +1,4 @@
 import { EtriganError } from '@etrigan/core'
-import { ConfigDriver } from './config-driver'
 
 export class ConfigValidationError extends EtriganError {
     constructor(message: string, innerError?: Error) {
