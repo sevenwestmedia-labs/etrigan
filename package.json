@@ -24,8 +24,9 @@
         "build": "yarn tsc -b",
         "test": "yarn jest",
         "lint": "eslint --ext .js,.ts .",
+        "verify": "yarn build && yarn test && yarn lint",
         "changeset": "changeset",
-        "release": "yarn build && yarn test && yarn lint && changeset publish"
+        "release": "yarn verify && changeset publish"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^2.7.0",
