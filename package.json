@@ -7,21 +7,31 @@
     "author": "Seven West Media WA",
     "license": "MIT",
     "dependencies": {
-        "@changesets/cli": "^2.3.3",
-        "@types/jest": "^24.0.22",
+        "@changesets/cli": "^2.4.0",
+        "@types/express": "^4.17.2",
+        "@types/jest": "^24.0.23",
+        "aws-sdk": "^2.570.0",
+        "express": "^4.17.1",
         "jest": "^24.9.0",
         "ts-jest": "^24.1.0",
-        "typescript": "^3.7.2",
         "tslib": "^1.10.0",
-        "@types/express": "^4.17.2",
-        "express": "^4.17.1",
-        "aws-sdk": "^2.566.0"
+        "typescript": "^3.7.2"
     },
     "workspaces": [
         "packages/*"
     ],
     "scripts": {
         "build": "yarn tsc -b",
-        "test": "yarn jest"
+        "test": "yarn jest",
+        "lint": "eslint --ext .js,.ts .",
+        "changeset": "changeset",
+        "release": "yarn build && yarn test && yarn lint && changeset publish"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.7.0",
+        "@typescript-eslint/parser": "^2.7.0",
+        "eslint": "^6.6.0",
+        "eslint-config-prettier": "^6.5.0",
+        "eslint-config-wanews-base": "^2.0.2"
     }
 }
