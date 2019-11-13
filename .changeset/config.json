@@ -1,7 +1,7 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@0.2.3/schema.json",
-  "changelog": "@changesets/cli/changelog",
-  "commit": false,
-  "linked": [],
-  "access": "restricted"
+    "$schema": "https://unpkg.com/@changesets/config@0.2.3/schema.json",
+    "changelog": "@changesets/cli/changelog",
+    "commit": false,
+    "linked": [],
+    "access": "public"
 }
