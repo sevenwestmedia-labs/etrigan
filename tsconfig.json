@@ -11,6 +11,9 @@
         },
         {
             "path": "./packages/config-express-middleware"
+        },
+        {
+            "path": "./packages/feature-toggles"
         }
     ],
     "files": []

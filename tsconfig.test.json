@@ -7,5 +7,6 @@
         "paths": {
             "@etrigan/core": ["./packages/core/src/index.ts"]
         }
-    }
+    },
+    "exclude": ["dist"]
 }
