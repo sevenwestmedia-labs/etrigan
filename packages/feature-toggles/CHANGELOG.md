@@ -1,5 +1,11 @@
 # @etrigan/feature-toggles
 
+## 0.1.2
+
+### Patch Changes
+
+- 4538db2: Exclude tsconfig from npm packages which cause consumption issues
+
 ## 0.1.1
 
 ### Patch Changes

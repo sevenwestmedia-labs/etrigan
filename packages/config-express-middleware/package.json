@@ -1,12 +1,12 @@
 {
   "name": "@etrigan/config-express-middleware",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Etrigan Config express middleware",
   "main": "dist/index.js",
   "author": "Seven West Media WA",
   "license": "MIT",
   "dependencies": {
-    "@etrigan/config": "0.1.1"
+    "@etrigan/config": "0.1.2"
   },
   "peerDependencies": {
     "express": "^4.17.1",

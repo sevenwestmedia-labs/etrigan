@@ -1,12 +1,12 @@
 {
   "name": "@etrigan/config",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Type safe config loader for NodeJS",
   "main": "dist/index.js",
   "author": "Seven West Media WA",
   "license": "MIT",
   "dependencies": {
-    "@etrigan/core": "0.1.0"
+    "@etrigan/core": "0.1.1"
   },
   "peerDependencies": {
     "tslib": "^1.10.0"
