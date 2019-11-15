@@ -1,5 +1,12 @@
 # @etrigan/config-express-middleware
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [6abe3ea]
+  - @etrigan/config@0.1.3
+
 ## 0.1.2
 
 ### Patch Changes
