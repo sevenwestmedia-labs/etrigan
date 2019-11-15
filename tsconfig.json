@@ -14,6 +14,9 @@
         },
         {
             "path": "./packages/feature-toggles"
+        },
+        {
+            "path": "./packages/logging"
         }
     ],
     "files": []

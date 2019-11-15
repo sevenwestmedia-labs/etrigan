@@ -1,0 +1,15 @@
+{
+    "name": "@etrigan/logging",
+    "version": "0.1.0",
+    "description": "Etrigan logging",
+    "main": "dist/index.js",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "peerDependencies": {
+        "tslib": "^1.10.0"
+    },
+    "dependencies": {
+        "pino": "^5.13.6",
+        "uuid": "^3.3.3"
+    }
+}
