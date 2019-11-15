@@ -9,6 +9,14 @@ declare global {
     }
 }
 
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace Express {
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        export interface Request extends WithConfig {}
+    }
+}
+
 export interface WithConfig {
     config: Etrigan.Config
 }
