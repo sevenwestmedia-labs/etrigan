@@ -26,7 +26,7 @@ export const environmentConfigDriver = {
      * })
      */
     async read<T>(variableNames: Record<keyof T, string>) {
-        const connectionString = createEnvDriverConnectionString(variableNames)
+        const connectionString = createEnvDriverConnectionString(variableNames).substring(6)
         return await environmentConfigDriver.fromConnectionString(connectionString)
     },
     async fromConnectionString(config: string) {
