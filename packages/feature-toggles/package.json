@@ -1,6 +1,6 @@
 {
   "name": "@etrigan/feature-toggles",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Etrigan feature toggles",
   "main": "dist/index.js",
   "author": "Seven West Media WA",
