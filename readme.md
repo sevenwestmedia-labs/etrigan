@@ -10,7 +10,7 @@ Credit: Wikipedia
 
 **Check out the readme's for each package as most of the information about each library will be in there!**
 
-### [etrigan/config](./packages/config)
+### [@etrigan/config](./packages/config)
 
 A plugable config management library for your NodeJS applications.
 
