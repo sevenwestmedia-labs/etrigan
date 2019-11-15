@@ -1,0 +1,15 @@
+{
+    "name": "@etrigan/feature-toggles",
+    "version": "0.1.0",
+    "description": "Etrigan feature toggles",
+    "main": "dist/index.js",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "peerDependencies": {
+        "tslib": "^1.10.0",
+        "typescript-log": "^1.1.1"
+    },
+    "dependencies": {
+        "launchdarkly-node-server-sdk": "^5.9.2"
+    }
+}
