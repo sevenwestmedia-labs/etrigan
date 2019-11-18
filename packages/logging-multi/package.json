@@ -1,0 +1,17 @@
+{
+    "name": "@etrigan/logging-multi",
+    "version": "0.0.0",
+    "description": "Etrigan logging with multi-stream support (log to console+file)",
+    "main": "dist/index.js",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "peerDependencies": {
+        "tslib": "^1.10.0"
+    },
+    "dependencies": {
+        "pino": "^5.13.6",
+        "pino-multi-stream": "^4.2.0",
+        "console-stream": "^0.1.1",
+        "uuid": "^3.3.3"
+    }
+}
