@@ -1,17 +1,20 @@
 import express from 'express'
 import supertest from 'supertest'
 
-import { expressRequestLoggingMiddleware, createLogger, TestStream, scrubJsonLogs } from './'
+import { expressRequestLoggingMiddleware, createLogger, scrubJsonLogs } from './'
 
 it('logs requests', async () => {
     const logs: string[] = []
+    const originalStdoutWrite = process.stdout.write.bind(process.stdout)
+    ;(process.stdout as any).write = (chunk: any, encoding: any, callback: any) => {
+        if (typeof chunk === 'string') {
+            logs.push(chunk)
+        }
+
+        return originalStdoutWrite(chunk, encoding, callback)
+    }
     const log = createLogger({
         logLevel: 'debug',
-        additionalStreams: [
-            {
-                stream: new TestStream(msg => logs.push(msg)),
-            },
-        ],
     })
     const middleware = expressRequestLoggingMiddleware(log)
     const app = express()
@@ -29,13 +32,16 @@ it('logs requests', async () => {
 
 it('logs API caller headers', async () => {
     const logs: string[] = []
+    const originalStdoutWrite = process.stdout.write.bind(process.stdout)
+    ;(process.stdout as any).write = (chunk: any, encoding: any, callback: any) => {
+        if (typeof chunk === 'string') {
+            logs.push(chunk)
+        }
+
+        return originalStdoutWrite(chunk, encoding, callback)
+    }
     const log = createLogger({
         logLevel: 'debug',
-        additionalStreams: [
-            {
-                stream: new TestStream(msg => logs.push(msg)),
-            },
-        ],
     })
     const middleware = expressRequestLoggingMiddleware(log)
     const app = express()
@@ -55,13 +61,17 @@ it('logs API caller headers', async () => {
 
 it('logs failed', async () => {
     const logs: string[] = []
+
+    const originalStdoutWrite = process.stdout.write.bind(process.stdout)
+    ;(process.stdout as any).write = (chunk: any, encoding: any, callback: any) => {
+        if (typeof chunk === 'string') {
+            logs.push(chunk)
+        }
+
+        return originalStdoutWrite(chunk, encoding, callback)
+    }
     const log = createLogger({
         logLevel: 'debug',
-        additionalStreams: [
-            {
-                stream: new TestStream(msg => logs.push(msg)),
-            },
-        ],
     })
     const middleware = expressRequestLoggingMiddleware(log)
     const app = express()

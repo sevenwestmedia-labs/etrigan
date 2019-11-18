@@ -1,9 +1,12 @@
 import pino from 'pino'
+import pinoms from 'pino-multi-stream'
+import consoleStream from 'console-stream'
 import express from 'express'
+import fs from 'fs'
 
-import { LogObject, Logger } from 'typescript-log'
+import { Logger, LogObject } from 'typescript-log'
 
-export interface WithLoggingInfo {
+export type WithLoggingInfo = {
     requestId: string
     log: Logger
     startTime: number
@@ -11,17 +14,21 @@ export interface WithLoggingInfo {
 
 export type Levels = 'fatal' | 'error' | 'warn' | 'info' | 'debug' | 'trace'
 
-export interface Options {
+export type Options = {
     name?: string
+    logfile?: string
 
     enabled?: boolean
 
     logLevel: Levels
     pretty?: boolean
+
+    additionalStreams?: Array<{
+        stream: NodeJS.WritableStream
+    }>
 }
 
-/** Lightweight wrapper for pino */
-export function createLogger(opts: Options) {
+export const createLogger = (opts: Options) => {
     const level = opts.logLevel
     const pinoOptions: pino.LoggerOptions = {
         name: opts.name,
@@ -35,10 +42,38 @@ export function createLogger(opts: Options) {
         },
     }
 
+    /* eslint-disable @typescript-eslint/no-var-requires */
     const usePretty = opts.pretty || process.env.NODE_ENV === 'development'
-    return pino({
+    const hasAdditionalStreams = opts.additionalStreams && opts.additionalStreams.length > 0
+    // Fast path without pinoms when just logging to the console
+    if (!opts.logfile && !hasAdditionalStreams) {
+        return pino({
+            ...pinoOptions,
+            prettyPrint: usePretty,
+        })
+    }
+
+    const streams: import('pino-multi-stream').Streams = [
+        {
+            level,
+            stream: consoleStream(),
+        },
+    ]
+
+    if (opts.logfile) {
+        streams.push({
+            level,
+            stream: fs.createWriteStream(opts.logfile, { flags: 'a' }),
+        })
+    }
+    if (opts.additionalStreams) {
+        streams.push(...opts.additionalStreams.map(stream => ({ stream: stream.stream, level })))
+    }
+
+    return pinoms({
+        name: opts.name,
         ...pinoOptions,
-        prettyPrint: usePretty,
+        streams,
     })
 }
 

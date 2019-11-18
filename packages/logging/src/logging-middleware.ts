@@ -1,7 +1,7 @@
 import express from 'express'
 import uuidv4 from 'uuid/v4'
 import { Logger } from 'typescript-log'
-import { WithLoggingInfo } from './create-logger'
+import { WithLoggingInfo } from '.'
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace

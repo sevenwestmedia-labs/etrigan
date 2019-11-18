@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can create logger 1`] = `
+Array [
+  "{\\"level\\":30,\\"time\\":someunixtimestamp,\\"pid\\":00000,\\"hostname\\":\\"replaced\\",\\"name\\":\\"named\\",\\"msg\\":\\"Test\\",\\"v\\":1}
+",
+]
+`;
