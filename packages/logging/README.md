@@ -15,7 +15,7 @@ import logging from 'etrigan/logging'
 
 // If a logfile is specified pino-multi-stream is configured
 // otherwise it will use plain pino for speed reasons
-const log = logging.createLogger('MyService', {})
+const log = logging.createLogger({ name: 'MyService' })
 ```
 
 #### Express request logging middleware

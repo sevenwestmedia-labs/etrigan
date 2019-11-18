@@ -28,7 +28,7 @@ export type Options = {
     }>
 }
 
-export const createLogger = (opts: Options) => {
+export function createLogger(opts: Options) {
     const level = opts.logLevel
     const pinoOptions: pino.LoggerOptions = {
         name: opts.name,
@@ -42,7 +42,6 @@ export const createLogger = (opts: Options) => {
         },
     }
 
-    /* eslint-disable @typescript-eslint/no-var-requires */
     const usePretty = opts.pretty || process.env.NODE_ENV === 'development'
     const hasAdditionalStreams = opts.additionalStreams && opts.additionalStreams.length > 0
     // Fast path without pinoms when just logging to the console
@@ -53,7 +52,7 @@ export const createLogger = (opts: Options) => {
         })
     }
 
-    const streams: import('pino-multi-stream').Streams = [
+    const streams: pinoms.Streams = [
         {
             level,
             stream: consoleStream(),
