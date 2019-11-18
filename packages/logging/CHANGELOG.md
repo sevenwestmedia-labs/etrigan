@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 0.1.2
+
+### Patch Changes
+
+- 0545eaf: Split logging packages into 2, one only supports logging to std out, the other supports multi-stream
+
 ## 0.1.1
 
 ### Patch Changes
