@@ -1,5 +1,11 @@
 # @etrigan/config-driver-ssm
 
+## 0.2.0
+
+### Minor Changes
+
+- c066efb: Remove leading / when specifying SSM path (breaking)
+
 ## 0.1.1
 
 ### Patch Changes
