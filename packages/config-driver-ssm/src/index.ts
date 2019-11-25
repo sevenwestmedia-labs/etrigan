@@ -85,7 +85,7 @@ export const parameterStoreConfigDriver = {
     },
     async fromConnectionString(config: string) {
         const directives = config.split(' ')
-        const path = '/' + directives.shift()
+        const path = directives.shift() || ''
         let region: string | undefined = undefined
         directives.forEach(directive => {
             const [key, val] = directive.split('=')
