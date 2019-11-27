@@ -1,6 +1,6 @@
 {
   "name": "@etrigan/config",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Type safe config loader for NodeJS",
   "main": "dist/index.js",
   "author": "Seven West Media WA",

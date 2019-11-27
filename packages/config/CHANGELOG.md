@@ -1,5 +1,11 @@
 # @etrigan/config
 
+## 0.2.0
+
+### Minor Changes
+
+- 0f23be2: export ValidationType type from load-config
+
 ## 0.1.3
 
 ### Patch Changes
