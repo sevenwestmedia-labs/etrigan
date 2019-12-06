@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 0.2.0
+
+### Minor Changes
+
+- 8f737c8: Allow pino options to be passed to the createLogger function
+
 ## 0.1.2
 
 ### Patch Changes
