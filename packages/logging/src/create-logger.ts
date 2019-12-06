@@ -18,12 +18,14 @@ export interface Options {
 
     logLevel: Levels
     pretty?: boolean
+    pinoOptions?: pino.LoggerOptions
 }
 
 /** Lightweight wrapper for pino */
 export function createLogger(opts: Options) {
     const level = opts.logLevel
     const pinoOptions: pino.LoggerOptions = {
+        ...opts.pinoOptions,
         name: opts.name,
         // This has to be lower than console and log file, chance to optimise later
         level,
