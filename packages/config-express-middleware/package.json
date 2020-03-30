@@ -1,6 +1,6 @@
 {
   "name": "@etrigan/config-express-middleware",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Etrigan Config express middleware",
   "main": "dist/index.js",
   "author": "Seven West Media WA",
