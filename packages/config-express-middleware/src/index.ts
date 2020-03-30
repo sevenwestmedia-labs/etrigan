@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express-serve-static-core'
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
