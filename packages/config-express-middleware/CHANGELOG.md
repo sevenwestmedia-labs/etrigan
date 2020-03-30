@@ -1,5 +1,11 @@
 # @etrigan/config-express-middleware
 
+## 0.2.0
+
+### Minor Changes
+
+- 3a6777b: use express-serve-static-core typings for exported type definitions
+
 ## 0.1.4
 
 ### Patch Changes

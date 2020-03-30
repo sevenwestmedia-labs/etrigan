@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 0.3.0
+
+### Minor Changes
+
+- 3a6777b: use express-serve-static-core typings for exported type definitions
+
 ## 0.2.0
 
 ### Minor Changes
