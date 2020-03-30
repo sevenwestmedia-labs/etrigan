@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express-serve-static-core'
 
 import { FeatureReceiver } from '.'
 import { FeatureState, isFeatureEnabled } from './universal'

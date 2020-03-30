@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express-serve-static-core'
 import uuidv4 from 'uuid/v4'
 import { Logger } from 'typescript-log'
 import { WithLoggingInfo } from '.'

@@ -1,7 +1,7 @@
 import pino from 'pino'
 import pinoms from 'pino-multi-stream'
 import consoleStream from 'console-stream'
-import express from 'express'
+import express from 'express-serve-static-core'
 import fs from 'fs'
 
 import { Logger, LogObject } from 'typescript-log'
