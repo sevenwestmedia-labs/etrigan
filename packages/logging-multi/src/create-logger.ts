@@ -23,6 +23,8 @@ export type Options = {
     logLevel: Levels
     pretty?: boolean
 
+    pinoOptions?: pino.LoggerOptions
+
     additionalStreams?: Array<{
         stream: NodeJS.WritableStream
     }>
@@ -31,6 +33,7 @@ export type Options = {
 export function createLogger(opts: Options) {
     const level = opts.logLevel
     const pinoOptions: pino.LoggerOptions = {
+        ...opts.pinoOptions,
         name: opts.name,
         // This has to be lower than console and log file, chance to optimise later
         level,

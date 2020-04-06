@@ -1,21 +1,3 @@
-export function scrubJsonLogs(msg: string): string
-export function scrubJsonLogs(msg: string[]): string[]
-export function scrubJsonLogs(msg: string | string[]) {
-    if (typeof msg === 'string') {
-        return msg
-            .replace(/"pid":\d+/g, '"pid":00000')
-            .replace(/"responseTime":\d+/g, '"responseTime":0')
-            .replace(/"hostname":".*?"/g, '"hostname":"replaced"')
-            .replace(/"time":\d+/g, `"time":someunixtimestamp`)
-            .replace(/"startTime":\d+/gi, '"starttime":someunixtimestamp')
-            .replace(/"endTime":\d+/gi, '"endTime":someunixtimestamp')
-            .replace(/"id":".*?"/g, '"id":"00000-0000-0000-0000-000000000"')
-            .replace(/"requestId":".*?"/g, '"requestId":"00000-0000-0000-0000-000000000"')
-    }
-
-    return msg.map(m => scrubJsonLogs(m))
-}
-
 export function scrubPrettyLogs(msg: string): string
 export function scrubPrettyLogs(msg: string[]): string[]
 export function scrubPrettyLogs(msg: string | string[]) {

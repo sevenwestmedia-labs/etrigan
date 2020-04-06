@@ -1,88 +1,197 @@
-import express from 'express'
-import supertest from 'supertest'
+import pino from 'pino'
 
-import { expressRequestLoggingMiddleware, createLogger, scrubJsonLogs } from './'
+import { expressRequestLoggingMiddleware, createLogger } from './'
 
 it('logs requests', async () => {
     const logs: string[] = []
-    const originalStdoutWrite = process.stdout.write.bind(process.stdout)
-    ;(process.stdout as any).write = (chunk: any, encoding: any, callback: any) => {
-        if (typeof chunk === 'string') {
-            logs.push(chunk)
-        }
-
-        return originalStdoutWrite(chunk, encoding, callback)
-    }
-    const log = createLogger({
-        logLevel: 'debug',
+    const events: { [event: string]: Function } = {}
+    const log = pino(
+        {
+            level: 'debug',
+            timestamp: false,
+            base: {},
+        },
+        {
+            write(msg) {
+                logs.push(msg)
+            },
+        },
+    )
+    const middleware = expressRequestLoggingMiddleware(log, {
+        createRequestId() {
+            return '<requestid>'
+        },
+        now() {
+            return 12345
+        },
     })
-    const middleware = expressRequestLoggingMiddleware(log)
-    const app = express()
+    const res = {
+        on(event: string, cb: Function) {
+            events[event] = cb.bind(res)
+        },
+        removeListener(event: string) {
+            delete events[event]
+        },
+    }
+    middleware(
+        {
+            header() {
+                return undefined
+            },
+            query: {},
+        } as any,
+        res as any,
+        () => {},
+    )
+    events.finish()
 
-    app.use(middleware)
-
-    app.get('/', (_req, res) => res.send('Hi'))
-
-    const res = await supertest(app)
-        .get('/')
-        .expect(200)
-    expect(res.text).toBe('Hi')
-    expect(scrubJsonLogs(logs)).toMatchSnapshot()
+    expect(logs).toMatchSnapshot()
+    expect(Object.keys(events).length).toBe(0)
 })
 
 it('logs API caller headers', async () => {
     const logs: string[] = []
-    const originalStdoutWrite = process.stdout.write.bind(process.stdout)
-    ;(process.stdout as any).write = (chunk: any, encoding: any, callback: any) => {
-        if (typeof chunk === 'string') {
-            logs.push(chunk)
-        }
-
-        return originalStdoutWrite(chunk, encoding, callback)
-    }
-    const log = createLogger({
-        logLevel: 'debug',
+    const events: { [event: string]: Function } = {}
+    const log = pino(
+        {
+            level: 'debug',
+            timestamp: false,
+            base: {},
+        },
+        {
+            write(msg) {
+                logs.push(msg)
+            },
+        },
+    )
+    const middleware = expressRequestLoggingMiddleware(log, {
+        createRequestId() {
+            return '<requestid>'
+        },
+        now() {
+            return 12345
+        },
     })
-    const middleware = expressRequestLoggingMiddleware(log)
-    const app = express()
+    const res = {
+        on(event: string, cb: Function) {
+            events[event] = cb.bind(res)
+        },
+        removeListener(event: string) {
+            delete events[event]
+        },
+    }
+    middleware(
+        {
+            header(name: string) {
+                if (name === 'x-request-id') {
+                    return 'testRequest1'
+                }
+                if (name === 'Caller') {
+                    return 'custom API caller'
+                }
+                return undefined
+            },
+            query: {},
+        } as any,
+        res as any,
+        () => {},
+    )
+    events.finish()
 
-    app.use(middleware)
-
-    app.get('/', (_req, res) => res.send('Hi'))
-
-    const res = await supertest(app)
-        .get('/')
-        .set('Caller', 'custom API caller')
-        .set('x-request-id', 'testRequest1')
-        .expect(200)
-    expect(res.text).toBe('Hi')
-    expect(scrubJsonLogs(logs)).toMatchSnapshot()
+    expect(logs).toMatchSnapshot()
+    expect(Object.keys(events).length).toBe(0)
 })
 
 it('logs failed', async () => {
     const logs: string[] = []
-
-    const originalStdoutWrite = process.stdout.write.bind(process.stdout)
-    ;(process.stdout as any).write = (chunk: any, encoding: any, callback: any) => {
-        if (typeof chunk === 'string') {
-            logs.push(chunk)
-        }
-
-        return originalStdoutWrite(chunk, encoding, callback)
-    }
-    const log = createLogger({
-        logLevel: 'debug',
+    const events: { [event: string]: Function } = {}
+    const log = pino(
+        {
+            level: 'debug',
+            timestamp: false,
+            base: {},
+        },
+        {
+            write(msg) {
+                logs.push(msg)
+            },
+        },
+    )
+    const middleware = expressRequestLoggingMiddleware(log, {
+        createRequestId() {
+            return '<requestid>'
+        },
+        now() {
+            return 12345
+        },
     })
-    const middleware = expressRequestLoggingMiddleware(log)
-    const app = express()
+    const res = {
+        on(event: string, cb: Function) {
+            events[event] = cb.bind(res)
+        },
+        removeListener(event: string) {
+            delete events[event]
+        },
+    }
+    middleware(
+        {
+            header() {
+                return undefined
+            },
+            query: {},
+        } as any,
+        res as any,
+        () => {},
+    )
+    events.error()
 
-    app.use(middleware)
+    expect(logs).toMatchSnapshot()
+    expect(Object.keys(events).length).toBe(0)
+})
 
-    app.get('/', (_req, res) => res.status(500).send('Oops'))
+it('logs close', async () => {
+    const logs: string[] = []
+    const events: { [event: string]: Function } = {}
+    const log = pino(
+        {
+            level: 'debug',
+            timestamp: false,
+            base: {},
+        },
+        {
+            write(msg) {
+                logs.push(msg)
+            },
+        },
+    )
+    const middleware = expressRequestLoggingMiddleware(log, {
+        createRequestId() {
+            return '<requestid>'
+        },
+        now() {
+            return 12345
+        },
+    })
+    const res = {
+        on(event: string, cb: Function) {
+            events[event] = cb.bind(res)
+        },
+        removeListener(event: string) {
+            delete events[event]
+        },
+    }
+    middleware(
+        {
+            header() {
+                return undefined
+            },
+            query: {},
+        } as any,
+        res as any,
+        () => {},
+    )
+    events.close()
 
-    const res = await supertest(app)
-        .get('/')
-        .expect(500)
-    expect(res.text).toBe('Oops')
-    expect(scrubJsonLogs(logs)).toMatchSnapshot()
+    expect(logs).toMatchSnapshot()
+    expect(Object.keys(events).length).toBe(0)
 })

@@ -2,27 +2,36 @@
 
 exports[`logs API caller headers 1`] = `
 Array [
-  "{\\"level\\":20,\\"time\\":someunixtimestamp,\\"pid\\":00000,\\"hostname\\":\\"replaced\\",\\"requestId\\":\\"00000-0000-0000-0000-000000000\\",\\"req\\":{\\"id\\":\\"00000-0000-0000-0000-000000000\\",\\"method\\":\\"GET\\",\\"url\\":\\"/\\",\\"headers\\":{\\"x-request-id\\":\\"testRequest1\\",\\"Caller\\":\\"custom API caller\\"}},\\"msg\\":\\"begin request\\",\\"v\\":1}
+  "{\\"level\\":20,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
 ",
-  "{\\"level\\":30,\\"time\\":someunixtimestamp,\\"pid\\":00000,\\"hostname\\":\\"replaced\\",\\"requestId\\":\\"00000-0000-0000-0000-000000000\\",\\"req\\":{\\"id\\":\\"00000-0000-0000-0000-000000000\\",\\"method\\":\\"GET\\",\\"url\\":\\"/\\",\\"starttime\\":someunixtimestamp,\\"headers\\":{\\"x-request-id\\":\\"testRequest1\\",\\"Caller\\":\\"custom API caller\\"}},\\"res\\":{\\"statusCode\\":200,\\"endTime\\":someunixtimestamp},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
+  "{\\"level\\":30,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
+",
+]
+`;
+
+exports[`logs close 1`] = `
+Array [
+  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
+",
+  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request - connection closed\\",\\"v\\":1}
 ",
 ]
 `;
 
 exports[`logs failed 1`] = `
 Array [
-  "{\\"level\\":20,\\"time\\":someunixtimestamp,\\"pid\\":00000,\\"hostname\\":\\"replaced\\",\\"requestId\\":\\"00000-0000-0000-0000-000000000\\",\\"req\\":{\\"id\\":\\"00000-0000-0000-0000-000000000\\",\\"method\\":\\"GET\\",\\"url\\":\\"/\\",\\"headers\\":{\\"Caller\\":\\"Not Specified\\"}},\\"msg\\":\\"begin request\\",\\"v\\":1}
+  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
 ",
-  "{\\"level\\":30,\\"time\\":someunixtimestamp,\\"pid\\":00000,\\"hostname\\":\\"replaced\\",\\"requestId\\":\\"00000-0000-0000-0000-000000000\\",\\"req\\":{\\"id\\":\\"00000-0000-0000-0000-000000000\\",\\"method\\":\\"GET\\",\\"url\\":\\"/\\",\\"starttime\\":someunixtimestamp,\\"headers\\":{\\"Caller\\":\\"Not Specified\\"}},\\"res\\":{\\"statusCode\\":500,\\"endTime\\":someunixtimestamp},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
+  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
 ",
 ]
 `;
 
 exports[`logs requests 1`] = `
 Array [
-  "{\\"level\\":20,\\"time\\":someunixtimestamp,\\"pid\\":00000,\\"hostname\\":\\"replaced\\",\\"requestId\\":\\"00000-0000-0000-0000-000000000\\",\\"req\\":{\\"id\\":\\"00000-0000-0000-0000-000000000\\",\\"method\\":\\"GET\\",\\"url\\":\\"/\\",\\"headers\\":{\\"Caller\\":\\"Not Specified\\"}},\\"msg\\":\\"begin request\\",\\"v\\":1}
+  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
 ",
-  "{\\"level\\":30,\\"time\\":someunixtimestamp,\\"pid\\":00000,\\"hostname\\":\\"replaced\\",\\"requestId\\":\\"00000-0000-0000-0000-000000000\\",\\"req\\":{\\"id\\":\\"00000-0000-0000-0000-000000000\\",\\"method\\":\\"GET\\",\\"url\\":\\"/\\",\\"starttime\\":someunixtimestamp,\\"headers\\":{\\"Caller\\":\\"Not Specified\\"}},\\"res\\":{\\"statusCode\\":200,\\"endTime\\":someunixtimestamp},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
+  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
 ",
 ]
 `;
