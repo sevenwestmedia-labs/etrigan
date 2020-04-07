@@ -66,6 +66,7 @@ export function logEscalator(
                 ;(log as any).level = 'debug'
             }
             logBuffer.push({ logMethod: 'error', args })
+            done()
         },
         fatal(...args: any[]) {
             if (isDone) {
@@ -76,6 +77,7 @@ export function logEscalator(
                 ;(log as any).level = 'debug'
             }
             logBuffer.push({ logMethod: 'fatal', args })
+            done()
         },
         done,
     }
