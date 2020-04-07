@@ -24,7 +24,9 @@ export function logEscalator(
 
     return {
         child() {
-            throw new Error('Log escalator does not support creating child loggers')
+            throw new Error(
+                'Log escalator does not support creating child loggers, the log escalator is designed to wrap a child logger',
+            )
         },
         trace(...args: any[]) {
             if (isDone) {
