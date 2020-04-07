@@ -19,6 +19,11 @@ export interface LoggingMiddlewareOptions {
     disableDebugQueryString?: boolean
     createRequestId?: () => string
     now?: () => number
+
+    sampling?: {
+        debugPercentage: number
+        infoPercentage: number
+    }
 }
 
 export function expressRequestLoggingMiddleware(
@@ -27,6 +32,7 @@ export function expressRequestLoggingMiddleware(
         disableDebugQueryString = process.env.DISABLE_DEBUG_LOG_QS === 'true',
         createRequestId = uuidv4,
         now = Date.now,
+        sampling,
     }: LoggingMiddlewareOptions = {},
 ): express.RequestHandler {
     return loggingMiddleware
@@ -75,6 +81,13 @@ export function expressRequestLoggingMiddleware(
         const childOptions = { requestId: req.requestId }
         if ('debug_log' in req.query && !disableDebugQueryString) {
             ;(childOptions as any).level = 'debug'
+        } else if (sampling) {
+            const threshold = Math.random() * 100
+            if (threshold > sampling.debugPercentage) {
+                ;(childOptions as any).level = 'debug'
+            } else if (threshold > sampling.infoPercentage) {
+                ;(childOptions as any).level = 'info'
+            }
         }
 
         req.log = logEscalator(logger.child(childOptions))
