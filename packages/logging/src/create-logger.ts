@@ -1,10 +1,11 @@
 import pino from 'pino'
-import express from 'express-serve-static-core'
 
-import { LogObject, Logger } from 'typescript-log'
+import { Logger } from 'typescript-log'
+import { serialisers } from './serialisers'
 
 export interface WithLoggingInfo {
     requestId: string
+    caller?: string
     log: Logger
     startTime: number
 }
@@ -31,9 +32,8 @@ export function createLogger(opts: Options) {
         level,
         enabled: opts.enabled !== false,
         serializers: {
-            req: asReqValue,
-            res: asResValue,
-            err: pino.stdSerializers.err,
+            ...pino.stdSerializers,
+            ...serialisers,
         },
     }
 
@@ -42,29 +42,4 @@ export function createLogger(opts: Options) {
         ...pinoOptions,
         prettyPrint: usePretty,
     })
-}
-
-function asResValue(res: express.Response & { endTime: number }) {
-    return {
-        statusCode: res.statusCode,
-        endTime: res.endTime,
-    }
-}
-
-function asReqValue(req: express.Request & WithLoggingInfo) {
-    const logObj: LogObject = {
-        id: req.requestId,
-        method: req.method,
-        url: req.originalUrl,
-        startTime: req.startTime,
-        headers: {
-            // Our custom API client identifying headers
-            'x-request-id': req.get('x-request-id'),
-            Caller: req.get('Caller') || 'Not Specified',
-        },
-    }
-    if (req.originalUrl !== req.url) {
-        logObj.finalUrl = req.url
-    }
-    return logObj
 }
