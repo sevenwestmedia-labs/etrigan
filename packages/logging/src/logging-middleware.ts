@@ -49,12 +49,12 @@ export function expressRequestLoggingMiddleware(
 
         if (err) {
             log.error({ res: this, err, responseTime }, 'request errored')
-            log.done()
+            log.emitAndStopBuffering()
             return
         }
 
         log.info({ req, res: this, responseTime }, 'end request')
-        log.done()
+        log.emitAndStopBuffering()
     }
 
     function onResClose(this: express.Response) {
@@ -66,7 +66,7 @@ export function expressRequestLoggingMiddleware(
         const responseTime = this.endTime - this.req!.startTime
         const log = this.req!.log as EscalatingLog
         log.info({ req: this.req!, res: this, responseTime }, 'end request - connection closed')
-        log.done()
+        log.emitAndStopBuffering()
     }
     function loggingMiddleware(
         req: express.Request,

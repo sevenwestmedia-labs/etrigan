@@ -41,7 +41,7 @@ it('wraps a logger', () => {
     wrappedLog.warn('warn msg')
     wrappedLog.error('error msg')
     wrappedLog.fatal('fatal msg')
-    wrappedLog.done()
+    wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
         `{"level":10,"msg":"trace msg","v":1}
@@ -73,10 +73,10 @@ it('done clears buffer', () => {
     const wrappedLog = logEscalator(log)
 
     wrappedLog.trace('trace msg')
-    wrappedLog.done()
+    wrappedLog.emitAndStopBuffering()
     // second done call is to ensure that the buffer was cleared,
     // if it wasn't the logs would be written to the log again
-    wrappedLog.done()
+    wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
         `{"level":10,"msg":"trace msg","v":1}
@@ -117,7 +117,7 @@ it('on warn write info', () => {
     wrappedLog.debug('debug msg')
     wrappedLog.info('info msg')
     wrappedLog.warn('warn msg')
-    wrappedLog.done()
+    wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
         `{"level":30,"msg":"info msg","v":1}
@@ -205,7 +205,7 @@ it('on warn after error, debug logs are still written', () => {
     wrappedLog.warn('warn msg')
     wrappedLog.error('error msg')
     wrappedLog.fatal('fatal msg')
-    wrappedLog.done()
+    wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
         `{"level":20,"msg":"debug msg","v":1}
@@ -240,7 +240,7 @@ it('on fatal write debug', () => {
     wrappedLog.warn('warn msg')
     wrappedLog.error('error msg')
     wrappedLog.fatal('fatal msg')
-    wrappedLog.done()
+    wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
         `{"level":20,"msg":"debug msg","v":1}
@@ -269,7 +269,7 @@ it('once done, does not buffer', () => {
 
     const wrappedLog = logEscalator(log)
 
-    wrappedLog.done()
+    wrappedLog.emitAndStopBuffering()
     wrappedLog.trace('trace msg')
     wrappedLog.debug('debug msg')
     wrappedLog.info('info msg')

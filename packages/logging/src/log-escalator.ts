@@ -1,8 +1,8 @@
 import { Logger } from 'typescript-log'
 
 export interface EscalatingLog extends Logger {
-    /** Flushes the logs to the underlying logger */
-    done(): void
+    /** Emits any buffered logs then stops buffering */
+    emitAndStopBuffering(): void
 }
 
 export function logEscalator(
@@ -19,7 +19,10 @@ export function logEscalator(
 ): EscalatingLog {
     let isDone = false
     const logBuffer: Array<{ logMethod: string; args: any[] }> = []
-    const timedOut: NodeJS.Timeout = (setTimeoutOption || (setTimeout as any))(done, timeout)
+    const timedOut: NodeJS.Timeout = (setTimeoutOption || (setTimeout as any))(
+        emitAndStopBuffering,
+        timeout,
+    )
     timedOut.unref()
 
     return {
@@ -68,7 +71,7 @@ export function logEscalator(
                 ;(log as any).level = 'debug'
             }
             logBuffer.push({ logMethod: 'error', args })
-            done()
+            emitAndStopBuffering()
         },
         fatal(...args: any[]) {
             if (isDone) {
@@ -79,12 +82,12 @@ export function logEscalator(
                 ;(log as any).level = 'debug'
             }
             logBuffer.push({ logMethod: 'fatal', args })
-            done()
+            emitAndStopBuffering()
         },
-        done,
+        emitAndStopBuffering,
     }
 
-    function done() {
+    function emitAndStopBuffering() {
         if (isDone) {
             return
         }
