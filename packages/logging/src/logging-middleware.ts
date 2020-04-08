@@ -83,9 +83,9 @@ export function expressRequestLoggingMiddleware(
             ;(childOptions as any).level = 'debug'
         } else if (sampling) {
             const threshold = Math.random() * 100
-            if (threshold > sampling.debugPercentage) {
+            if (threshold < sampling.debugPercentage) {
                 ;(childOptions as any).level = 'debug'
-            } else if (threshold > sampling.infoPercentage) {
+            } else if (threshold < sampling.infoPercentage) {
                 ;(childOptions as any).level = 'info'
             }
         }
