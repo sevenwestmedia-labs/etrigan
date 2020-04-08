@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 1.0.1
+
+### Patch Changes
+
+- 2b894ef: Fixed log sampling
+
 ## 1.0.0
 
 ### Major Changes
