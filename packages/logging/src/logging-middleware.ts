@@ -1,8 +1,14 @@
 import express from 'express-serve-static-core'
 import uuidv4 from 'uuid/v4'
 import { Logger } from 'typescript-log'
-import { WithLoggingInfo } from '.'
 import { logEscalator, EscalatingLog } from './log-escalator'
+
+export interface WithLoggingInfo {
+    requestId: string
+    caller?: string
+    log: Logger
+    startTime: number
+}
 
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -27,7 +33,7 @@ export interface LoggingMiddlewareOptions {
 }
 
 export function expressRequestLoggingMiddleware(
-    logger: Logger,
+    log: Logger,
     {
         disableDebugQueryString = process.env.DISABLE_DEBUG_LOG_QS === 'true',
         createRequestId = uuidv4,
@@ -90,7 +96,7 @@ export function expressRequestLoggingMiddleware(
             }
         }
 
-        req.log = logEscalator(logger.child(childOptions))
+        req.log = logEscalator(log.child(childOptions))
         req.log.debug({ req }, 'begin request')
         req.startTime = now()
         res.req = req
