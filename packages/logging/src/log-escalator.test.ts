@@ -44,17 +44,17 @@ it('wraps a logger', () => {
     wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
-        `{"level":10,"msg":"trace msg","v":1}
+        `{"level":10,"msg":"trace msg"}
 `,
-        `{"level":20,"msg":"debug msg","v":1}
+        `{"level":20,"msg":"debug msg"}
 `,
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":40,"msg":"warn msg","v":1}
+        `{"level":40,"msg":"warn msg"}
 `,
-        `{"level":50,"msg":"error msg","v":1}
+        `{"level":50,"msg":"error msg"}
 `,
-        `{"level":60,"msg":"fatal msg","v":1}
+        `{"level":60,"msg":"fatal msg"}
 `,
     ])
 })
@@ -79,7 +79,7 @@ it('done clears buffer', () => {
     wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
-        `{"level":10,"msg":"trace msg","v":1}
+        `{"level":10,"msg":"trace msg"}
 `,
     ])
 })
@@ -120,9 +120,9 @@ it('on warn write info', () => {
     wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":40,"msg":"warn msg","v":1}
+        `{"level":40,"msg":"warn msg"}
 `,
     ])
 })
@@ -147,13 +147,13 @@ it('on error write debug, without calling done', () => {
     wrappedLog.fatal('fatal msg')
 
     expect(logs).toEqual([
-        `{"level":20,"msg":"debug msg","v":1}
+        `{"level":20,"msg":"debug msg"}
 `,
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":50,"msg":"error msg","v":1}
+        `{"level":50,"msg":"error msg"}
 `,
-        `{"level":60,"msg":"fatal msg","v":1}
+        `{"level":60,"msg":"fatal msg"}
 `,
     ])
 })
@@ -177,11 +177,11 @@ it('on fatal write debug, without calling done', () => {
     wrappedLog.fatal('fatal msg')
 
     expect(logs).toEqual([
-        `{"level":20,"msg":"debug msg","v":1}
+        `{"level":20,"msg":"debug msg"}
 `,
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":60,"msg":"fatal msg","v":1}
+        `{"level":60,"msg":"fatal msg"}
 `,
     ])
 })
@@ -208,15 +208,15 @@ it('on warn after error, debug logs are still written', () => {
     wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
-        `{"level":20,"msg":"debug msg","v":1}
+        `{"level":20,"msg":"debug msg"}
 `,
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":40,"msg":"warn msg","v":1}
+        `{"level":40,"msg":"warn msg"}
 `,
-        `{"level":50,"msg":"error msg","v":1}
+        `{"level":50,"msg":"error msg"}
 `,
-        `{"level":60,"msg":"fatal msg","v":1}
+        `{"level":60,"msg":"fatal msg"}
 `,
     ])
 })
@@ -243,15 +243,15 @@ it('on fatal write debug', () => {
     wrappedLog.emitAndStopBuffering()
 
     expect(logs).toEqual([
-        `{"level":20,"msg":"debug msg","v":1}
+        `{"level":20,"msg":"debug msg"}
 `,
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":40,"msg":"warn msg","v":1}
+        `{"level":40,"msg":"warn msg"}
 `,
-        `{"level":50,"msg":"error msg","v":1}
+        `{"level":50,"msg":"error msg"}
 `,
-        `{"level":60,"msg":"fatal msg","v":1}
+        `{"level":60,"msg":"fatal msg"}
 `,
     ])
 })
@@ -278,17 +278,17 @@ it('once done, does not buffer', () => {
     wrappedLog.fatal('fatal msg')
 
     expect(logs).toEqual([
-        `{"level":10,"msg":"trace msg","v":1}
+        `{"level":10,"msg":"trace msg"}
 `,
-        `{"level":20,"msg":"debug msg","v":1}
+        `{"level":20,"msg":"debug msg"}
 `,
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":40,"msg":"warn msg","v":1}
+        `{"level":40,"msg":"warn msg"}
 `,
-        `{"level":50,"msg":"error msg","v":1}
+        `{"level":50,"msg":"error msg"}
 `,
-        `{"level":60,"msg":"fatal msg","v":1}
+        `{"level":60,"msg":"fatal msg"}
 `,
     ])
 })
@@ -323,17 +323,17 @@ it('done times out if not called within timeout', () => {
     callback!()
 
     expect(logs).toEqual([
-        `{"level":10,"msg":"trace msg","v":1}
+        `{"level":10,"msg":"trace msg"}
 `,
-        `{"level":20,"msg":"debug msg","v":1}
+        `{"level":20,"msg":"debug msg"}
 `,
-        `{"level":30,"msg":"info msg","v":1}
+        `{"level":30,"msg":"info msg"}
 `,
-        `{"level":40,"msg":"warn msg","v":1}
+        `{"level":40,"msg":"warn msg"}
 `,
-        `{"level":50,"msg":"error msg","v":1}
+        `{"level":50,"msg":"error msg"}
 `,
-        `{"level":60,"msg":"fatal msg","v":1}
+        `{"level":60,"msg":"fatal msg"}
 `,
     ])
     expect(timeoutVal).toBe(10000)

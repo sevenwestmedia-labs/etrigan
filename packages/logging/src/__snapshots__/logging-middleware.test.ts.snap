@@ -2,36 +2,36 @@
 
 exports[`logs API caller headers 1`] = `
 Array [
-  "{\\"level\\":20,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
+  "{\\"level\\":20,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\"}
 ",
-  "{\\"level\\":30,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
+  "{\\"level\\":30,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\"}
 ",
 ]
 `;
 
 exports[`logs close 1`] = `
 Array [
-  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
+  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\"}
 ",
-  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request - connection closed\\",\\"v\\":1}
+  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request - connection closed\\"}
 ",
 ]
 `;
 
 exports[`logs failed 1`] = `
 Array [
-  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
+  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\"}
 ",
-  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
+  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\"}
 ",
 ]
 `;
 
 exports[`logs requests 1`] = `
 Array [
-  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\",\\"v\\":1}
+  "{\\"level\\":20,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\"}
 ",
-  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\",\\"v\\":1}
+  "{\\"level\\":30,\\"requestId\\":\\"<requestid>\\",\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"requestId\\":\\"<requestid>\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\"}
 ",
 ]
 `;
