@@ -10,6 +10,6 @@
     "typescript-log": "^1.1.1"
   },
   "dependencies": {
-    "launchdarkly-node-server-sdk": "^5.9.2"
+    "launchdarkly-node-server-sdk": "^5.13.0"
   }
 }
