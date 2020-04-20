@@ -1,6 +1,6 @@
 import pino from 'pino'
 
-import { expressRequestLoggingMiddleware, createLogger } from './'
+import { expressRequestLoggingMiddleware } from './'
 it('logs requests', async () => {
     const logs: string[] = []
     const events: { [event: string]: Function } = {}
