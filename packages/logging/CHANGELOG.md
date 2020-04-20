@@ -1,5 +1,17 @@
 # @etrigan/logging
 
+## 2.0.0
+
+### Major Changes
+
+- 3c11373: Removed createLogger helper, should use pino directly
+
+  It added unnecessary obfuscation
+
+### Minor Changes
+
+- 3c11373: Upgraded dependencies
+
 ## 1.0.1
 
 ### Patch Changes
