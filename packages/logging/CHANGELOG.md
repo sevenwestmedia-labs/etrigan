@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 2.0.1
+
+### Patch Changes
+
+- a047984: Removed deprecation warning from deep import of uuid
+
 ## 2.0.0
 
 ### Major Changes
