@@ -1,16 +1,17 @@
 {
-  "name": "@etrigan/logging",
-  "version": "2.0.1",
-  "description": "Etrigan logging",
-  "main": "dist/index.js",
-  "author": "Seven West Media WA",
-  "license": "MIT",
-  "sideEffects": false,
-  "peerDependencies": {
-    "tslib": "^1.10.0"
-  },
-  "dependencies": {
-    "pino": "^6.2.0",
-    "uuid": "^7.0.3"
-  }
+    "name": "@etrigan/logging",
+    "version": "2.0.1",
+    "description": "Etrigan logging",
+    "main": "dist/index.js",
+    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "sideEffects": false,
+    "peerDependencies": {
+        "tslib": "^1.10.0"
+    },
+    "dependencies": {
+        "pino": "^6.2.0",
+        "uuid": "^7.0.3"
+    }
 }

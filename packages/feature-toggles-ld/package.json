@@ -1,7 +1,7 @@
 {
-    "name": "@etrigan/feature-toggles",
+    "name": "@etrigan/feature-toggles-ld",
     "version": "0.3.0",
-    "description": "Etrigan feature toggles",
+    "description": "Etrigan feature toggles adapter for Launch Darkly",
     "main": "dist/index.js",
     "repository": "https://github.com/sevenwestmedia-labs/etrigan",
     "author": "Seven West Media WA",
@@ -9,5 +9,8 @@
     "peerDependencies": {
         "tslib": "^1.10.0",
         "typescript-log": "^1.1.1"
+    },
+    "dependencies": {
+        "launchdarkly-node-server-sdk": "^5.13.0"
     }
 }

@@ -1,14 +1,15 @@
 {
-  "name": "@etrigan/config",
-  "version": "0.2.0",
-  "description": "Type safe config loader for NodeJS",
-  "main": "dist/index.js",
-  "author": "Seven West Media WA",
-  "license": "MIT",
-  "dependencies": {
-    "@etrigan/core": "0.1.1"
-  },
-  "peerDependencies": {
-    "tslib": "^1.10.0"
-  }
+    "name": "@etrigan/config",
+    "version": "0.2.0",
+    "description": "Type safe config loader for NodeJS",
+    "main": "dist/index.js",
+    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "dependencies": {
+        "@etrigan/core": "0.1.1"
+    },
+    "peerDependencies": {
+        "tslib": "^1.10.0"
+    }
 }

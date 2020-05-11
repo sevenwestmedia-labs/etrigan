@@ -3,27 +3,28 @@ import path from 'path'
 
 import { promisify } from 'util'
 import { Logger } from 'typescript-log'
-import { FeatureState } from './universal'
+import { RawFeatureValues } from './create-feature-updater'
 
-export const featureFilePath = (featureStateFile: string) =>
-    path.isAbsolute(featureStateFile)
+export function featureFilePath(featureStateFile: string) {
+    return path.isAbsolute(featureStateFile)
         ? featureStateFile
         : path.join(process.cwd(), featureStateFile)
+}
 
-export const writeFeatureFile = (
+export function writeFeatureFile(
     featureStateFile: string,
-    featureState: FeatureState,
+    featureState: RawFeatureValues,
     logger: Logger,
-) => {
+) {
     const filePath = featureFilePath(featureStateFile)
     logger.debug(`Writing feature state file to ${filePath}`)
 
     return promisify(fs.writeFile)(filePath, JSON.stringify(featureState, null, 4))
 }
-export const readFeatureFile = async (
+export async function readFeatureFile(
     featureStateFile: string,
     logger: Logger,
-): Promise<FeatureState> => {
+): Promise<RawFeatureValues> {
     const filePath = featureFilePath(featureStateFile)
     logger.debug(`Reading features from ${filePath}`)
 
@@ -34,7 +35,11 @@ export const readFeatureFile = async (
     return JSON.parse(data.toString())
 }
 
-export const featureStateFileExists = (featureStateFile: string) => {
+export function featureStateFileExists(featureStateFile: string | undefined) {
+    if (!featureStateFile) {
+        return false
+    }
+
     const filePath = featureFilePath(featureStateFile)
     return promisify(fs.exists)(filePath)
 }
