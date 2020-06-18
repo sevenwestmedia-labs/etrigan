@@ -1,3 +1,3 @@
 # Etrigan feature toggles - AWS Parameter Store source
 
-## Usage
+This is an example of a different feature store

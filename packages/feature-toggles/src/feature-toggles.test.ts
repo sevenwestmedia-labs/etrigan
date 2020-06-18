@@ -38,6 +38,6 @@ it('can receive feature updates', async () => {
 
     expect(await message).toEqual({
         type: 'feature-message',
-        features: { ['test-feature']: { enabled: false } },
+        features: { ['test-feature']: false },
     })
 })
