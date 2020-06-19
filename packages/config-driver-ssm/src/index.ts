@@ -19,7 +19,11 @@ export class ParameterStoreError extends EtriganError {
  */
 export const parameterStoreConfigDriver = {
     protocol: 'ssm',
-    async read<T>(path: string, region: string | undefined, logger: Logger = noopLogger()) {
+    async read<T>(
+        path: string,
+        region: string | undefined,
+        logger: Logger = noopLogger(),
+    ): Promise<Record<string, any>> {
         const ssmConfig: SSM.ClientConfiguration = {}
         const kmsConfig: KMS.ClientConfiguration = {}
         ssmConfig.region = region
@@ -83,7 +87,7 @@ export const parameterStoreConfigDriver = {
         logger.debug(`No more parameters`)
         return output
     },
-    async fromConnectionString(config: string) {
+    async fromConnectionString(config: string): Promise<Record<string, any>> {
         const directives = config.split(' ')
         const path = directives.shift() || ''
         let region: string | undefined = undefined

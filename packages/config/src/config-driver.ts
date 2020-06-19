@@ -9,7 +9,7 @@ export interface ConfigDriver {
 }
 
 export class ConfigDriverError extends EtriganError {
-    static isInstance(error: Error) {
+    static isInstance(error: Error): boolean {
         return error.name === 'ConfigDriverError'
     }
 
@@ -22,7 +22,7 @@ const configDrivers: ConfigDriver[] =
     (global as any)['additional_config_drivers'] ||
     ((global as any)['additional_config_drivers'] = [environmentConfigDriver, jsonFileConfigDriver])
 
-export function registerDriver(configDriver: ConfigDriver) {
+export function registerDriver(configDriver: ConfigDriver): void {
     configDrivers.push(configDriver)
 }
 
@@ -35,7 +35,9 @@ export function registerDriver(configDriver: ConfigDriver) {
  * json:///absolute/path/to/file.json
  * json://relative/path/toconfig.json
  */
-export async function getConfigRecords(configConnectionString: string) {
+export async function getConfigRecords(
+    configConnectionString: string,
+): Promise<Record<string, any>> {
     if (!configConnectionString) {
         throw new ConfigDriverError('No configuration string provided')
     }

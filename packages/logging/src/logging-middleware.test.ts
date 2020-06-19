@@ -3,7 +3,7 @@ import pino from 'pino'
 import { expressRequestLoggingMiddleware } from './'
 it('logs requests', async () => {
     const logs: string[] = []
-    const events: { [event: string]: Function } = {}
+    const events: { [event: string]: () => any } = {}
     const log = pino(
         {
             level: 'debug',
@@ -25,7 +25,7 @@ it('logs requests', async () => {
         },
     })
     const res = {
-        on(event: string, cb: Function) {
+        on(event: string, cb: () => any) {
             events[event] = cb.bind(res)
         },
         removeListener(event: string) {
@@ -50,7 +50,7 @@ it('logs requests', async () => {
 
 it('logs API caller headers', async () => {
     const logs: string[] = []
-    const events: { [event: string]: Function } = {}
+    const events: { [event: string]: () => any } = {}
     const log = pino(
         {
             level: 'debug',
@@ -72,7 +72,7 @@ it('logs API caller headers', async () => {
         },
     })
     const res = {
-        on(event: string, cb: Function) {
+        on(event: string, cb: () => any) {
             events[event] = cb.bind(res)
         },
         removeListener(event: string) {
@@ -103,7 +103,7 @@ it('logs API caller headers', async () => {
 
 it('logs failed', async () => {
     const logs: string[] = []
-    const events: { [event: string]: Function } = {}
+    const events: { [event: string]: () => any } = {}
     const log = pino(
         {
             level: 'debug',
@@ -125,7 +125,7 @@ it('logs failed', async () => {
         },
     })
     const res = {
-        on(event: string, cb: Function) {
+        on(event: string, cb: () => any) {
             events[event] = cb.bind(res)
         },
         removeListener(event: string) {
@@ -150,7 +150,7 @@ it('logs failed', async () => {
 
 it('logs close', async () => {
     const logs: string[] = []
-    const events: { [event: string]: Function } = {}
+    const events: { [event: string]: () => any } = {}
     const log = pino(
         {
             level: 'debug',
@@ -172,7 +172,7 @@ it('logs close', async () => {
         },
     })
     const res = {
-        on(event: string, cb: Function) {
+        on(event: string, cb: () => any) {
             events[event] = cb.bind(res)
         },
         removeListener(event: string) {

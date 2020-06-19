@@ -14,7 +14,11 @@ export class FeatureStore extends EventEmitter {
     private allData: LDDataMap = {}
     private initCalled = false
 
-    get(kind: { namespace: string }, key: string, callback: (res: LDFlagValue) => void = noop) {
+    get(
+        kind: { namespace: string },
+        key: string,
+        callback: (res: LDFlagValue) => void = noop,
+    ): void {
         const items = this.allData[kind.namespace] || {}
         if (items.hasOwnProperty(key)) {
             const item = items[key]
@@ -29,7 +33,7 @@ export class FeatureStore extends EventEmitter {
         }
     }
 
-    all(kind: { namespace: string }, callback: (res: LDFlagSet) => void = noop) {
+    all(kind: { namespace: string }, callback: (res: LDFlagSet) => void = noop): void {
         const results: LDFlagSet = {}
         const items = this.allData[kind.namespace] || {}
 
@@ -45,14 +49,19 @@ export class FeatureStore extends EventEmitter {
         callback(results)
     }
 
-    init(store: LDDataMap, callback: () => void = noop) {
+    init(store: LDDataMap, callback: () => void = noop): void {
         this.allData = store
         this.initCalled = true
 
         callback()
     }
 
-    delete(kind: { namespace: string }, key: string, version: string, callback: () => void = noop) {
+    delete(
+        kind: { namespace: string },
+        key: string,
+        version: string,
+        callback: () => void = noop,
+    ): void {
         let items = this.allData[kind.namespace] || {}
         if (!items) {
             items = {}
@@ -72,7 +81,7 @@ export class FeatureStore extends EventEmitter {
         callback()
     }
 
-    upsert(kind: { namespace: string }, data: LDFlagValue, callback: () => void = noop) {
+    upsert(kind: { namespace: string }, data: LDFlagValue, callback: () => void = noop): void {
         const key = data.key
         let items = this.allData[kind.namespace]
         if (!items) {

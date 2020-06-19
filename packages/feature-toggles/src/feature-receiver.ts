@@ -7,7 +7,7 @@ export class FeatureReceiver {
         process.on('message', this.featuresChanged)
     }
 
-    featuresChanged = (message: FeatureMessage) => {
+    featuresChanged(message: FeatureMessage): void {
         if (message.type === 'feature-message') {
             this.logger.debug('Received features from master')
             this.featureState = message.features
