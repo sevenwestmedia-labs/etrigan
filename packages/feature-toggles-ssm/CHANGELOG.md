@@ -1,5 +1,16 @@
 # @etrigan/feature-toggles
 
+## 1.0.0
+
+### Major Changes
+
+- e83f6e0: Upgraded tslib to next major, requires TypeScript >3.9
+
+### Patch Changes
+
+- Updated dependencies [e83f6e0]
+  - @etrigan/core@1.0.0
+
 ## 0.3.0
 
 ### Minor Changes

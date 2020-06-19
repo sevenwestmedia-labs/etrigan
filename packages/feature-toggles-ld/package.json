@@ -1,16 +1,16 @@
 {
-    "name": "@etrigan/feature-toggles-ld",
-    "version": "0.3.0",
-    "description": "Etrigan feature toggles adapter for Launch Darkly",
-    "main": "dist/index.js",
-    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
-    "author": "Seven West Media WA",
-    "license": "MIT",
-    "peerDependencies": {
-        "tslib": "^2.0.0",
-        "typescript-log": "^2.0.0"
-    },
-    "dependencies": {
-        "launchdarkly-node-server-sdk": "^5.13.1"
-    }
+  "name": "@etrigan/feature-toggles-ld",
+  "version": "1.0.0",
+  "description": "Etrigan feature toggles adapter for Launch Darkly",
+  "main": "dist/index.js",
+  "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+  "author": "Seven West Media WA",
+  "license": "MIT",
+  "peerDependencies": {
+    "tslib": "^2.0.0",
+    "typescript-log": "^2.0.0"
+  },
+  "dependencies": {
+    "launchdarkly-node-server-sdk": "^5.13.1"
+  }
 }

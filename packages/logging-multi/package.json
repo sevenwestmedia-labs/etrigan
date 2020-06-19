@@ -1,18 +1,18 @@
 {
-    "name": "@etrigan/logging-multi",
-    "version": "0.3.0",
-    "description": "Etrigan logging with multi-stream support (log to console+file)",
-    "main": "dist/index.js",
-    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
-    "author": "Seven West Media WA",
-    "license": "MIT",
-    "peerDependencies": {
-        "tslib": "^2.0.0"
-    },
-    "dependencies": {
-        "console-stream": "^0.1.1",
-        "pino": "^6.3.2",
-        "pino-multi-stream": "^5.0.0",
-        "uuid": "^8.1.0"
-    }
+  "name": "@etrigan/logging-multi",
+  "version": "1.0.0",
+  "description": "Etrigan logging with multi-stream support (log to console+file)",
+  "main": "dist/index.js",
+  "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+  "author": "Seven West Media WA",
+  "license": "MIT",
+  "peerDependencies": {
+    "tslib": "^2.0.0"
+  },
+  "dependencies": {
+    "console-stream": "^0.1.1",
+    "pino": "^6.3.2",
+    "pino-multi-stream": "^5.0.0",
+    "uuid": "^8.1.0"
+  }
 }
