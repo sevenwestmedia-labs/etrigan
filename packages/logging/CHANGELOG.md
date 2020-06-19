@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 3.0.0
+
+### Major Changes
+
+- e83f6e0: Upgraded tslib to next major, requires TypeScript >3.9
+
 ## 2.0.1
 
 ### Patch Changes

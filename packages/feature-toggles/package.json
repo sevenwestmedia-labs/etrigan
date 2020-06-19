@@ -1,13 +1,13 @@
 {
-    "name": "@etrigan/feature-toggles",
-    "version": "0.3.0",
-    "description": "Etrigan feature toggles",
-    "main": "dist/index.js",
-    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
-    "author": "Seven West Media WA",
-    "license": "MIT",
-    "peerDependencies": {
-        "tslib": "^2.0.0",
-        "typescript-log": "^2.0.0"
-    }
+  "name": "@etrigan/feature-toggles",
+  "version": "1.0.0",
+  "description": "Etrigan feature toggles",
+  "main": "dist/index.js",
+  "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+  "author": "Seven West Media WA",
+  "license": "MIT",
+  "peerDependencies": {
+    "tslib": "^2.0.0",
+    "typescript-log": "^2.0.0"
+  }
 }

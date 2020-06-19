@@ -1,5 +1,16 @@
 # @etrigan/config-express-middleware
 
+## 1.0.0
+
+### Major Changes
+
+- e83f6e0: Upgraded tslib to next major, requires TypeScript >3.9
+
+### Patch Changes
+
+- Updated dependencies [e83f6e0]
+  - @etrigan/config@1.0.0
+
 ## 0.2.0
 
 ### Minor Changes
