@@ -12,7 +12,7 @@ export interface FeatureState {
         value: FeatureValue
 
         /** User overridable */
-        canOverride: boolean
+        canUserOverride: boolean
 
         userOverride?: FeatureValue
     }

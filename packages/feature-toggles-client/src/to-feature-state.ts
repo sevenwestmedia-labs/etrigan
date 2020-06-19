@@ -6,7 +6,7 @@ export function toFeatureState(rawFeatures: RawFeatureValues): FeatureState {
         const rawValue = rawFeatures[featureKey]
         features[featureKey] = {
             // TODO The user should be able to specify this, just putting the shape in for now
-            canOverride: false,
+            canUserOverride: false,
             value: {
                 raw: rawValue,
                 boolean() {
