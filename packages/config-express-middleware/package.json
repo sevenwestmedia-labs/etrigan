@@ -11,6 +11,6 @@
     },
     "peerDependencies": {
         "express": "^4.17.1",
-        "tslib": "^1.10.0"
+        "tslib": "^2.0.0"
     }
 }

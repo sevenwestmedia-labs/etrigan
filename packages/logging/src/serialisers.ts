@@ -2,14 +2,16 @@ import express from 'express'
 import { WithLoggingInfo } from '.'
 import { LogObject } from 'typescript-log'
 
-function asResValue(res: express.Response & { endTime: number }) {
+function asResValue(
+    res: express.Response & { endTime: number },
+): { statusCode: number; endTime: number } {
     return {
         statusCode: res.statusCode,
         endTime: res.endTime,
     }
 }
 
-function asReqValue(req: express.Request & WithLoggingInfo) {
+function asReqValue(req: express.Request & WithLoggingInfo): LogObject {
     const logObj: LogObject = {
         id: req.requestId,
         method: req.method,

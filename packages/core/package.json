@@ -7,6 +7,6 @@
     "author": "Seven West Media WA",
     "license": "MIT",
     "peerDependencies": {
-        "tslib": "^1.10.0"
+        "tslib": "^2.0.0"
     }
 }

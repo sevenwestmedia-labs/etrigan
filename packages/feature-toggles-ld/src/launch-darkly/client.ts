@@ -21,7 +21,7 @@ export function initialiseClient(
     sdkKey: string,
     logger: Logger,
     featureStore: LaunchDarkly.LDFeatureStore,
-) {
+): Promise<LaunchDarkly.LDClient> {
     logger.debug(`Initialising launch darkly client with key ${sdkKey}`)
     return new Promise<LaunchDarkly.LDClient>((resolve, reject) => {
         // Downgrade 'Connection closed, reconnecting' message to info
@@ -65,11 +65,11 @@ export function initialiseClient(
 }
 
 const maxDelayMs = 5 * 60 * 1000 // 5 minutes
-export const getLaunchDarklyClientWithRetry = async (
+export async function getLaunchDarklyClientWithRetry(
     sdkKey: string,
     logger: Logger,
     featureStore: LaunchDarkly.LDFeatureStore,
-) => {
+): Promise<LaunchDarkly.LDClient> {
     let prevDelayMs = 0
     let currentDelayMs = 100
 

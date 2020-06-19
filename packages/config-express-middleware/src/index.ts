@@ -26,7 +26,7 @@ export function expressConfigMiddleware<T extends Etrigan.Config>(config: () => 
         req: express.Request & WithConfig,
         _res: express.Response,
         next: express.NextFunction,
-    ) {
+    ): void {
         // Config is a function so we can reload the config outside the middleware but
         // config is atomic for each request
         req.config = config()

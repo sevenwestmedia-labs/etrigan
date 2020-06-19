@@ -15,7 +15,7 @@ declare global {
     }
 }
 
-export function createFeatureStateMiddleware(featureReceiver: FeatureReceiver) {
+export function createFeatureStateMiddleware(featureReceiver: FeatureReceiver): express.Handler {
     return feaureStateMiddleware
 
     function feaureStateMiddleware(

@@ -6,7 +6,7 @@ import { ConfigMap } from '../load-config'
  */
 export function createEnvDriverConnectionString<T extends ConfigMap>(
     variableNames: Record<keyof T, string>,
-) {
+): string {
     const envKeys = Object.keys(variableNames) as Array<keyof typeof variableNames>
     return `env://${envKeys.reduce((acc, val) => {
         if (acc !== '') {
@@ -25,11 +25,13 @@ export const environmentConfigDriver = {
      *     value: 'FROM_THIS_ENV_VAR'
      * })
      */
-    async read<T>(variableNames: Record<keyof T, string>) {
+    async read<T>(
+        variableNames: Record<keyof T, string>,
+    ): Promise<Record<string, string | undefined>> {
         const connectionString = createEnvDriverConnectionString(variableNames).substring(6)
         return await environmentConfigDriver.fromConnectionString(connectionString)
     },
-    async fromConnectionString(config: string) {
+    async fromConnectionString(config: string): Promise<Record<string, string | undefined>> {
         const variables = config.split(';')
         return variables.reduce<Record<string, string | undefined>>((acc, val) => {
             const aliasSplit = val.split(':')

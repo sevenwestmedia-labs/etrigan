@@ -6,7 +6,7 @@ import fs from 'fs'
 
 import { Logger, LogObject } from 'typescript-log'
 
-export type WithLoggingInfo = {
+export interface WithLoggingInfo {
     requestId: string
     log: Logger
     startTime: number
@@ -30,7 +30,7 @@ export type Options = {
     }>
 }
 
-export function createLogger(opts: Options) {
+export function createLogger(opts: Options): pino.Logger {
     const level = opts.logLevel
     const pinoOptions: pino.LoggerOptions = {
         ...opts.pinoOptions,

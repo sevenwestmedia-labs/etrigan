@@ -8,10 +8,10 @@
     "license": "MIT",
     "sideEffects": false,
     "peerDependencies": {
-        "tslib": "^1.10.0"
+        "tslib": "^2.0.0"
     },
     "dependencies": {
-        "pino": "^6.2.0",
-        "uuid": "^7.0.3"
+        "pino": "^6.3.2",
+        "uuid": "^8.1.0"
     }
 }

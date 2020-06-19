@@ -7,12 +7,12 @@
     "author": "Seven West Media WA",
     "license": "MIT",
     "peerDependencies": {
-        "tslib": "^1.10.0"
+        "tslib": "^2.0.0"
     },
     "dependencies": {
         "console-stream": "^0.1.1",
-        "pino": "^6.2.0",
+        "pino": "^6.3.2",
         "pino-multi-stream": "^5.0.0",
-        "uuid": "^7.0.3"
+        "uuid": "^8.1.0"
     }
 }
