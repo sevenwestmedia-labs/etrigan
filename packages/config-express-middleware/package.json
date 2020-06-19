@@ -1,15 +1,16 @@
 {
-  "name": "@etrigan/config-express-middleware",
-  "version": "0.2.0",
-  "description": "Etrigan Config express middleware",
-  "main": "dist/index.js",
-  "author": "Seven West Media WA",
-  "license": "MIT",
-  "dependencies": {
-    "@etrigan/config": "0.2.0"
-  },
-  "peerDependencies": {
-    "express": "^4.17.1",
-    "tslib": "^1.10.0"
-  }
+    "name": "@etrigan/config-express-middleware",
+    "version": "0.2.0",
+    "description": "Etrigan Config express middleware",
+    "main": "dist/index.js",
+    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "dependencies": {
+        "@etrigan/config": "0.2.0"
+    },
+    "peerDependencies": {
+        "express": "^4.17.1",
+        "tslib": "^1.10.0"
+    }
 }

@@ -1,10 +1,3 @@
-import { LDClient, LDFeatureStore } from 'launchdarkly-node-server-sdk'
-import {
-    initialiseClient,
-    allToggles,
-    getLaunchDarklyClientWithRetry,
-} from './launch-darkly/client'
-import { FeatureStore } from './launch-darkly/feature-store'
 import {
     writeFeatureFile,
     featureStateFileExists,
@@ -12,100 +5,101 @@ import {
     readFeatureFile,
     FeatureUpdater,
 } from '.'
-import { FeatureState } from './universal'
-import { Logger } from 'typescript-log'
+import { Logger, noopLogger } from 'typescript-log'
 
-export interface FeatureUpdaterConfig {
-    featureStateFile: string
-    launchDarklySdkKey?: string
+export interface RawFeatureValues {
+    [feature: string]: any
 }
 
-/** Initialises feature toggles in the master */
-export const createFeatureUpdater = async (
-    logger: Logger,
-    config: FeatureUpdaterConfig,
-): Promise<FeatureUpdater> => {
-    const featureStore = new FeatureStore()
-    let ldClient: LDClient | undefined
-    let initialFeatureState: FeatureState | undefined
+export interface FeatureUpdaterOptions {
+    /**
+     * A file to write the current state to in the event
+     * the service restarts and cannot reach the feature toggle service
+     * or to read from when worker processes restart
+     **/
+    featureStateFile: string
 
+    log?: Logger
+
+    getFeatures(log: Logger): Promise<RawFeatureValues>
+
+    /**
+     * If specified, will subscribe to changes and notify workers when the toggles change
+     * @param togglesChanged notify of a change, optionally with the new toggles (otherwise they will be fetched)
+     **/
+    subscribeToChanges?(togglesChanged: (features?: RawFeatureValues) => void): void
+}
+
+/** Initialises feature toggles in the master worker */
+export async function createFeatureUpdater(
+    options: FeatureUpdaterOptions,
+): Promise<FeatureUpdater> {
+    const { log = noopLogger(), featureStateFile, getFeatures, subscribeToChanges } = options
+    let initialFeatureState: RawFeatureValues | undefined
     try {
-        ldClient = await initialiseClient(
-            config.launchDarklySdkKey,
-            logger,
-            featureStore as LDFeatureStore,
-        )
-
-        if (ldClient) {
-            initialFeatureState = await allToggles(ldClient, logger)
-        }
+        initialFeatureState = await getFeatures(log)
     } catch (err) {
-        logger.warn(
-            { err },
-            'Error initialising launch darkly client, falling back to feature file',
-        )
+        log.error({ err }, 'Error fetching toggles')
     }
 
     if (initialFeatureState) {
-        await writeFeatureFile(config.featureStateFile, initialFeatureState, logger)
+        await writeFeatureFile(featureStateFile, initialFeatureState, log)
     }
 
-    const featureStateFileExistsResult = await featureStateFileExists(config.featureStateFile)
+    const featureStateFileExistsResult = await featureStateFileExists(featureStateFile)
     // We want to read the state from the file to ensure it works.
     if (!featureStateFileExistsResult) {
         throw new Error(
-            `Expecting feature state file to exist at ${featureFilePath(config.featureStateFile)}`,
+            `Expecting feature state file to exist at ${featureFilePath(featureStateFile!)}`,
         )
     }
 
-    initialFeatureState = await readFeatureFile(config.featureStateFile, logger)
-    const featureUpdater = new FeatureUpdater(initialFeatureState, featureStore, ldClient, logger)
-    if (!ldClient && config.launchDarklySdkKey) {
-        launchDarklyFailedToInitialise(logger, config, featureStore, featureUpdater)
-    }
+    initialFeatureState = await readFeatureFile(featureStateFile, log)
+    const featureUpdater = new FeatureUpdater(initialFeatureState, log)
+    // Simple queueing mechanism, just append .then() to the end and it will run
+    // once the other promises have completed
+    let currentProcessingChange: Promise<any> = Promise.resolve()
 
-    // Finally subscribe to store updates
-    featureStore.on(featureStore.TOGGLES_UPDATED_EVENT, () =>
-        updatedHandler(config, ldClient, logger),
-    )
+    if (subscribeToChanges) {
+        subscribeToChanges(newFeatures => {
+            currentProcessingChange = currentProcessingChange.then(() => {
+                return updatedHandler(options, log, newFeatures, featureUpdater)
+            })
+        })
+    }
 
     return featureUpdater
 }
 
 async function updatedHandler(
-    config: FeatureUpdaterConfig,
-    ldClient: LDClient | undefined,
-    logger: Logger,
-) {
-    try {
-        if (!ldClient) {
-            throw new Error('Feature store should not change without a launch darkly client')
-        }
-        const initialToggles = await allToggles(ldClient, logger)
-        await writeFeatureFile(config.featureStateFile, initialToggles, logger)
-    } catch (err) {
-        logger.error({ err }, 'Failed to write feature file')
-    }
-}
-
-async function launchDarklyFailedToInitialise(
-    logger: Logger,
-    config: {
-        featureStateFile: string
-        launchDarklySdkKey?: string
-    },
-    featureStore: FeatureStore,
+    options: FeatureUpdaterOptions,
+    log: Logger,
+    newFeatures: RawFeatureValues | undefined,
     featureUpdater: FeatureUpdater,
 ) {
-    // Launch darkly has failed to initialise, lets keep trying in the background
-    const client = await getLaunchDarklyClientWithRetry(
-        config.launchDarklySdkKey,
-        logger,
-        featureStore as LDFeatureStore,
-    )
-    if (client) {
-        const initialToggles = await allToggles(client, logger)
-        await writeFeatureFile(config.featureStateFile, initialToggles, logger)
-        featureUpdater.setLdClient(client)
+    log.debug(`Processing features changed notification`)
+    let rawFeatureValues: RawFeatureValues
+    try {
+        if (newFeatures) {
+            rawFeatureValues = newFeatures
+        } else {
+            log.debug(`Fetching new features state`)
+            rawFeatureValues = await options.getFeatures(log)
+        }
+    } catch (err) {
+        log.error({ err }, 'Failed to fetch new features')
+        return
     }
+
+    log.debug(
+        { featureStateFile: options.featureStateFile },
+        `Writing new feature state to feature state file`,
+    )
+    try {
+        await writeFeatureFile(options.featureStateFile, rawFeatureValues, log)
+    } catch (err) {
+        log.error({ err }, 'Failed to write feature file')
+    }
+
+    await featureUpdater.updateToggleState(rawFeatureValues)
 }

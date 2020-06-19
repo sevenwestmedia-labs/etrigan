@@ -1,15 +1,16 @@
 {
-  "name": "@etrigan/config-driver-ssm",
-  "version": "0.2.0",
-  "description": "Etrigan Config driver for AWS SSM Parameter Store",
-  "main": "dist/index.js",
-  "author": "Seven West Media WA",
-  "license": "MIT",
-  "dependencies": {
-    "typescript-log": "^1.1.1"
-  },
-  "peerDependencies": {
-    "aws-sdk": "^2.566.0",
-    "tslib": "^1.10.0"
-  }
+    "name": "@etrigan/config-driver-ssm",
+    "version": "0.2.0",
+    "description": "Etrigan Config driver for AWS SSM Parameter Store",
+    "main": "dist/index.js",
+    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "dependencies": {
+        "typescript-log": "^1.1.1"
+    },
+    "peerDependencies": {
+        "aws-sdk": "^2.566.0",
+        "tslib": "^1.10.0"
+    }
 }

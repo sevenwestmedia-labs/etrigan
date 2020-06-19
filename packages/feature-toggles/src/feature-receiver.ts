@@ -1,9 +1,9 @@
 import { Logger } from 'typescript-log'
 import { FeatureMessage } from '.'
-import { FeatureState } from './universal'
+import { RawFeatureValues } from './create-feature-updater'
 
 export class FeatureReceiver {
-    constructor(private logger: Logger, public featureState: FeatureState) {
+    constructor(private logger: Logger, public featureState: RawFeatureValues) {
         process.on('message', this.featuresChanged)
     }
 

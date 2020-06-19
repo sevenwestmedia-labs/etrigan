@@ -1,33 +1,27 @@
 import LaunchDarkly from 'launchdarkly-node-server-sdk'
 import { Logger } from 'typescript-log'
-import { readLdAllFlagsResult } from './result-parser'
-import { FeatureState, StringAnyMap } from '../universal'
+import { RawFeatureValues } from '@etrigan/feature-toggles'
 
 export const serverSideRenderUser = { key: 'server-side-render' }
 
 export const allToggles = async (
     ldClient: LaunchDarkly.LDClient,
     logger: Logger,
-): Promise<FeatureState> => {
+): Promise<RawFeatureValues> => {
     const results = await ldClient.allFlagsState(serverSideRenderUser)
 
     logger.debug(results, 'LD Flags State')
 
-    const items: StringAnyMap = results.toJSON()
-    const features = readLdAllFlagsResult(items)
+    const features: RawFeatureValues = results.toJSON()
 
     return features
 }
 
-export const initialiseClient = (
-    sdkKey: string | undefined,
+export function initialiseClient(
+    sdkKey: string,
     logger: Logger,
     featureStore: LaunchDarkly.LDFeatureStore,
-) => {
-    if (!sdkKey) {
-        return
-    }
-
+) {
     logger.debug(`Initialising launch darkly client with key ${sdkKey}`)
     return new Promise<LaunchDarkly.LDClient>((resolve, reject) => {
         // Downgrade 'Connection closed, reconnecting' message to info
@@ -72,14 +66,10 @@ export const initialiseClient = (
 
 const maxDelayMs = 5 * 60 * 1000 // 5 minutes
 export const getLaunchDarklyClientWithRetry = async (
-    sdkKey: string | undefined,
+    sdkKey: string,
     logger: Logger,
     featureStore: LaunchDarkly.LDFeatureStore,
 ) => {
-    if (!sdkKey) {
-        return
-    }
-
     let prevDelayMs = 0
     let currentDelayMs = 100
 

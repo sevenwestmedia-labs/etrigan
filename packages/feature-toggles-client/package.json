@@ -1,7 +1,7 @@
 {
-    "name": "@etrigan/feature-toggles",
+    "name": "@etrigan/feature-toggles-client",
     "version": "0.3.0",
-    "description": "Etrigan feature toggles",
+    "description": "APIs to make it easier to work with feature states in both the browser and node",
     "main": "dist/index.js",
     "repository": "https://github.com/sevenwestmedia-labs/etrigan",
     "author": "Seven West Media WA",

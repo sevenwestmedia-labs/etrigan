@@ -1,10 +1,10 @@
 import express from 'express-serve-static-core'
 
 import { FeatureReceiver } from '.'
-import { FeatureState, isFeatureEnabled } from './universal'
+import { RawFeatureValues } from './create-feature-updater'
 
 export interface WithFeatures {
-    features: FeatureState
+    features: RawFeatureValues
 }
 
 declare global {
@@ -26,16 +26,5 @@ export function createFeatureStateMiddleware(featureReceiver: FeatureReceiver) {
         req.features = featureReceiver.featureState
 
         next()
-    }
-}
-
-export function featureToggledRoute<Features extends string>(features: Features) {
-    return (
-        req: express.Request & WithFeatures,
-        res: express.Response,
-        next: express.NextFunction,
-    ) => {
-        const isPathEnabled = isFeatureEnabled(req.features, features)
-        isPathEnabled ? next() : res.sendStatus(404)
     }
 }
