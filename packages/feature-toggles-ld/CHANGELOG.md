@@ -1,5 +1,11 @@
 # @etrigan/feature-toggles
 
+## 1.1.2
+
+### Patch Changes
+
+- 1ed98fc: Fixed location of toEtriganState function
+
 ## 1.1.1
 
 ### Patch Changes
