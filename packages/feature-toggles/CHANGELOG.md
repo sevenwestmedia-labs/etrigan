@@ -1,5 +1,11 @@
 # @etrigan/feature-toggles
 
+## 1.1.1
+
+### Patch Changes
+
+- 7e0a741: RawFeatureValues keys should be unknown not any
+
 ## 1.1.0
 
 ### Minor Changes
