@@ -1,5 +1,13 @@
 # @etrigan/feature-toggles
 
+## 1.1.3
+
+### Patch Changes
+
+- 71ad572: Fixed more dependency issues
+- Updated dependencies [71ad572]
+  - @etrigan/feature-toggles@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes
