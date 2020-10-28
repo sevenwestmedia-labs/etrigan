@@ -1,9 +1,10 @@
 import { Logger } from 'typescript-log'
-import { createFeatureUpdater, FeatureUpdater, RawFeatureValues } from '@etrigan/feature-toggles'
+import { createFeatureUpdater, FeatureUpdater } from '@etrigan/feature-toggles'
 import { EtriganError } from '@etrigan/core'
 
 import SSM from 'aws-sdk/clients/ssm'
 import KMS from 'aws-sdk/clients/kms'
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 
 export class ParameterStoreError extends EtriganError {
     constructor(message: string, innerError?: Error) {
@@ -23,8 +24,6 @@ export async function createSSMFeatureUpdater(
     log: Logger,
     config: SsmFeatureUpdaterConfig,
 ): Promise<FeatureUpdater> {
-    let updatedHandler: (newFeatures?: RawFeatureValues) => void
-
     const featureUpdater = createFeatureUpdater({
         log,
         featureStateFile: config.featureStateFile,

@@ -1,3 +1,4 @@
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 import { Logger, noopLogger } from 'typescript-log'
 import { FeatureUpdater } from './feature-updater'
 import {
@@ -6,10 +7,6 @@ import {
     readFeatureFile,
     writeFeatureFile,
 } from './features-state-file'
-
-export interface RawFeatureValues {
-    [feature: string]: unknown
-}
 
 export interface FeatureUpdaterOptions {
     /**

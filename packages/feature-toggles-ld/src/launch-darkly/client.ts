@@ -1,6 +1,6 @@
 import LaunchDarkly from 'launchdarkly-node-server-sdk'
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 import { Logger } from 'typescript-log'
-import { RawFeatureValues } from '@etrigan/feature-toggles'
 
 export const serverSideRenderUser = { key: 'server-side-render' }
 

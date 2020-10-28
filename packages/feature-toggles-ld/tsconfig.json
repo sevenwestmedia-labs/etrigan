@@ -8,6 +8,9 @@
     "references": [
         {
             "path": "../feature-toggles"
+        },
+        {
+            "path": "../feature-toggles-client"
         }
     ],
     "exclude": ["dist"]

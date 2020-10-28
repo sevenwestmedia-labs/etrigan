@@ -3,7 +3,7 @@ import path from 'path'
 
 import { promisify } from 'util'
 import { Logger } from 'typescript-log'
-import { RawFeatureValues } from './create-feature-updater'
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 
 export function featureFilePath(featureStateFile: string): string {
     return path.isAbsolute(featureStateFile)

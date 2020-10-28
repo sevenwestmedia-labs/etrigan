@@ -6,7 +6,8 @@ import {
 } from './launch-darkly/client'
 import { FeatureStore } from './launch-darkly/feature-store'
 import { Logger } from 'typescript-log'
-import { createFeatureUpdater, FeatureUpdater, RawFeatureValues } from '@etrigan/feature-toggles'
+import { createFeatureUpdater, FeatureUpdater } from '@etrigan/feature-toggles'
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 
 export interface LaunchDarklyFeatureUpdaterConfig {
     featureStateFile: string

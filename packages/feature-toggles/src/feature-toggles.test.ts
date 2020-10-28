@@ -1,8 +1,9 @@
 jest.mock('fs')
 jest.mock('cluster')
 
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 import { consoleLogger } from 'typescript-log'
-import { createFeatureUpdater, RawFeatureValues } from './create-feature-updater'
+import { createFeatureUpdater } from './create-feature-updater'
 
 it('can initialise client', async () => {
     await createFeatureUpdater({

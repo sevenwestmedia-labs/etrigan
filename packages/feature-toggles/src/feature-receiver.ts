@@ -1,5 +1,5 @@
 import { Logger } from 'typescript-log'
-import { RawFeatureValues } from './create-feature-updater'
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 import { FeatureMessage } from './feature-updater'
 
 export class FeatureReceiver {

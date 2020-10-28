@@ -1,7 +1,6 @@
 import express from 'express-serve-static-core'
 
-import { FeatureState } from '@etrigan/feature-toggles-client'
-import { toFeatureState } from './to-feature-state'
+import { FeatureState, toFeatureState } from '@etrigan/feature-toggles-client'
 import { FeatureReceiver } from './feature-receiver'
 
 export interface WithFeatures {

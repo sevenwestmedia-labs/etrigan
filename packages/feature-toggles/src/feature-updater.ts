@@ -1,7 +1,7 @@
 import * as cluster from 'cluster'
 import { Logger } from 'typescript-log'
 import { EventEmitter } from 'events'
-import { RawFeatureValues } from './create-feature-updater'
+import { RawFeatureValues } from '@etrigan/feature-toggles-client'
 
 export interface FeatureMessage {
     type: 'feature-message'
