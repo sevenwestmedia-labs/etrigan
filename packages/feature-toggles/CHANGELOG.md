@@ -1,5 +1,13 @@
 # @etrigan/feature-toggles
 
+## 1.1.2
+
+### Patch Changes
+
+- a21a33d: Fixed version issue
+- Updated dependencies [a21a33d]
+  - @etrigan/feature-toggles-client@1.1.3
+
 ## 1.1.1
 
 ### Patch Changes
