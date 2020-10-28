@@ -1,17 +1,18 @@
 {
-  "name": "@etrigan/feature-toggles-ssm",
-  "version": "1.1.0",
-  "description": "Etrigan feature toggles using AWS Parameter store for the toggle values",
-  "main": "dist/index.js",
-  "repository": "https://github.com/sevenwestmedia-labs/etrigan",
-  "author": "Seven West Media WA",
-  "license": "MIT",
-  "dependencies": {
-    "@etrigan/core": "1.0.0"
-  },
-  "peerDependencies": {
-    "tslib": "^2.0.0",
-    "typescript-log": "^2.0.0",
-    "aws-sdk": "^2.566.0"
-  }
+    "name": "@etrigan/feature-toggles-ssm",
+    "version": "1.1.0",
+    "description": "Etrigan feature toggles using AWS Parameter store for the toggle values",
+    "main": "dist/index.js",
+    "repository": "https://github.com/sevenwestmedia-labs/etrigan",
+    "author": "Seven West Media WA",
+    "license": "MIT",
+    "dependencies": {
+        "@etrigan/core": "1.0.0",
+        "@etrigan/feature-toggles": "1.1.0"
+    },
+    "peerDependencies": {
+        "tslib": "^2.0.0",
+        "typescript-log": "^2.0.0",
+        "aws-sdk": "^2.566.0"
+    }
 }
