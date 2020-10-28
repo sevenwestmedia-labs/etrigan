@@ -3,10 +3,7 @@
     "compilerOptions": {
         "target": "es2018",
         "rootDir": "./",
-        "baseUrl": ".",
-        "paths": {
-            "@etrigan/core": ["./packages/core/src/index.ts"]
-        }
+        "baseUrl": "."
     },
     "exclude": ["dist"]
 }

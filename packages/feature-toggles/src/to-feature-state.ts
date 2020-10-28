@@ -1,5 +1,5 @@
-import { RawFeatureValues } from '@etrigan/feature-toggles'
-import { FeatureState } from '.'
+import { FeatureState } from '@etrigan/feature-toggles-client'
+import { RawFeatureValues } from './create-feature-updater'
 
 export function toFeatureState(rawFeatures: RawFeatureValues): FeatureState {
     return Object.keys(rawFeatures).reduce<FeatureState>((features, featureKey) => {

@@ -1,11 +1,11 @@
-import {
-    writeFeatureFile,
-    featureStateFileExists,
-    featureFilePath,
-    readFeatureFile,
-    FeatureUpdater,
-} from '.'
 import { Logger, noopLogger } from 'typescript-log'
+import { FeatureUpdater } from './feature-updater'
+import {
+    featureFilePath,
+    featureStateFileExists,
+    readFeatureFile,
+    writeFeatureFile,
+} from './features-state-file'
 
 export interface RawFeatureValues {
     [feature: string]: unknown

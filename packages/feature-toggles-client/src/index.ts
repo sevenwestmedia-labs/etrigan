@@ -32,5 +32,3 @@ export function isFeatureEnabled<Features extends string>(
 
     return featureState.userOverride?.boolean() ?? featureState.value.boolean()
 }
-
-export * from './to-feature-state'

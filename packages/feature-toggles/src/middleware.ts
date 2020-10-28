@@ -1,10 +1,11 @@
 import express from 'express-serve-static-core'
 
-import { FeatureReceiver } from '.'
-import { RawFeatureValues } from './create-feature-updater'
+import { FeatureState } from '@etrigan/feature-toggles-client'
+import { toFeatureState } from './to-feature-state'
+import { FeatureReceiver } from './feature-receiver'
 
 export interface WithFeatures {
-    features: RawFeatureValues
+    features: FeatureState
 }
 
 declare global {
@@ -23,7 +24,7 @@ export function createFeatureStateMiddleware(featureReceiver: FeatureReceiver): 
         _res: express.Response,
         next: express.NextFunction,
     ) {
-        req.features = featureReceiver.featureState
+        req.features = toFeatureState(featureReceiver.featureState)
 
         next()
     }
