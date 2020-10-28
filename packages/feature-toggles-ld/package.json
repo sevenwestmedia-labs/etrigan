@@ -1,6 +1,6 @@
 {
   "name": "@etrigan/feature-toggles-ld",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Etrigan feature toggles adapter for Launch Darkly",
   "main": "dist/index.js",
   "repository": "https://github.com/sevenwestmedia-labs/etrigan",
