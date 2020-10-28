@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 3.1.0
+
+### Minor Changes
+
+- 38d3ab5: Upgraded dependencies and fixed package publish for feature toggle packages
+
 ## 3.0.0
 
 ### Major Changes
