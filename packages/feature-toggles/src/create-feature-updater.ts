@@ -8,7 +8,7 @@ import {
 import { Logger, noopLogger } from 'typescript-log'
 
 export interface RawFeatureValues {
-    [feature: string]: any
+    [feature: string]: unknown
 }
 
 export interface FeatureUpdaterOptions {

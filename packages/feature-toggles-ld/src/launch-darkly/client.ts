@@ -12,7 +12,7 @@ export const allToggles = async (
 
     logger.debug(results, 'LD Flags State')
 
-    const features: RawFeatureValues = results.toJSON()
+    const features = results.toJSON() as RawFeatureValues
 
     return features
 }
