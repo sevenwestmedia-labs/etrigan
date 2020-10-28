@@ -17,7 +17,7 @@ export const allToggles = async (
     return features
 }
 
-export function initialiseClient(
+export function initialiseLaunchDarklyClient(
     sdkKey: string,
     logger: Logger,
     featureStore: LaunchDarkly.LDFeatureStore,
@@ -77,7 +77,7 @@ export async function getLaunchDarklyClientWithRetry(
     // eslint-disable-next-line no-constant-condition
     while (true) {
         try {
-            return await initialiseClient(sdkKey, logger, featureStore)
+            return await initialiseLaunchDarklyClient(sdkKey, logger, featureStore)
         } catch (err) {
             if (currentDelayMs < maxDelayMs) {
                 const newDelay = prevDelayMs + currentDelayMs

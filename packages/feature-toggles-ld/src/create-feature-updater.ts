@@ -1,6 +1,6 @@
 import { LDClient, LDFeatureStore } from 'launchdarkly-node-server-sdk'
 import {
-    initialiseClient,
+    initialiseLaunchDarklyClient,
     allToggles,
     getLaunchDarklyClientWithRetry,
 } from './launch-darkly/client'
@@ -8,7 +8,7 @@ import { FeatureStore } from './launch-darkly/feature-store'
 import { Logger } from 'typescript-log'
 import { createFeatureUpdater, FeatureUpdater, RawFeatureValues } from '@etrigan/feature-toggles'
 
-export interface FeatureUpdaterConfig {
+export interface LaunchDarklyFeatureUpdaterConfig {
     featureStateFile: string
     launchDarklySdkKey: string
 }
@@ -16,14 +16,14 @@ export interface FeatureUpdaterConfig {
 /** Initialises feature toggles in the master */
 export async function createLaunchDarklyFeatureUpdater(
     log: Logger,
-    config: FeatureUpdaterConfig,
+    config: LaunchDarklyFeatureUpdaterConfig,
 ): Promise<FeatureUpdater> {
     const featureStore = new FeatureStore()
     let ldClient: LDClient | undefined
     let updatedHandler: (newFeatures?: RawFeatureValues) => void
 
     try {
-        ldClient = await initialiseClient(
+        ldClient = await initialiseLaunchDarklyClient(
             config.launchDarklySdkKey,
             log,
             featureStore as LDFeatureStore,

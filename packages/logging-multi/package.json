@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "console-stream": "^0.1.1",
-    "pino": "^6.3.2",
-    "pino-multi-stream": "^5.0.0",
-    "uuid": "^8.1.0"
+    "pino": "^6.7.0",
+    "pino-multi-stream": "^5.1.1",
+    "uuid": "^8.3.1"
   }
 }

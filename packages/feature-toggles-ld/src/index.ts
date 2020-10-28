@@ -1,2 +1,2 @@
-import * as launchDarkly from './launch-darkly'
-export { launchDarkly }
+export * from './launch-darkly'
+export * from './create-feature-updater'

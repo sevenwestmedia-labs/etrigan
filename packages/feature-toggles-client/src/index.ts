@@ -8,14 +8,16 @@ export interface FeatureValue {
  * Current state of the feature toggles
  */
 export interface FeatureState {
-    [feature: string]: {
-        value: FeatureValue
+    [feature: string]:
+        | {
+              value: FeatureValue
 
-        /** User overridable */
-        canUserOverride: boolean
+              /** User overridable */
+              canUserOverride: boolean
 
-        userOverride?: FeatureValue
-    }
+              userOverride?: FeatureValue
+          }
+        | undefined
 }
 
 export function isFeatureEnabled<Features extends string>(
@@ -31,4 +33,4 @@ export function isFeatureEnabled<Features extends string>(
     return featureState.userOverride?.boolean() ?? featureState.value.boolean()
 }
 
-export { toFeatureState } from './to-feature-state'
+export * from './to-feature-state'

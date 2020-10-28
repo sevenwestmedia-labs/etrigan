@@ -16,6 +16,15 @@
             "path": "./packages/feature-toggles"
         },
         {
+            "path": "./packages/feature-toggles-client"
+        },
+        {
+            "path": "./packages/feature-toggles-ld"
+        },
+        {
+            "path": "./packages/feature-toggles-ssm"
+        },
+        {
             "path": "./packages/logging"
         },
         {
