@@ -7,7 +7,7 @@
     "author": "Seven West Media WA",
     "license": "MIT",
     "dependencies": {
-        "@etrigan/feature-toggles-client": "1.1.0"
+        "@etrigan/feature-toggles-client": "1.1.2"
     },
     "peerDependencies": {
         "tslib": "^2.0.0",
