@@ -1,5 +1,12 @@
 # @etrigan/feature-toggles
 
+## 1.1.4
+
+### Patch Changes
+
+- cf1fe87: Fixed unbound class function
+  - @etrigan/feature-toggles-client@1.1.5
+
 ## 1.1.3
 
 ### Patch Changes
