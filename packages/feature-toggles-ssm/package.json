@@ -1,6 +1,6 @@
 {
   "name": "@etrigan/feature-toggles-ssm",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Etrigan feature toggles using AWS Parameter store for the toggle values",
   "main": "dist/index.js",
   "repository": "https://github.com/sevenwestmedia-labs/etrigan",
@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "@etrigan/core": "1.0.0",
-    "@etrigan/feature-toggles": "1.1.4"
+    "@etrigan/feature-toggles": "1.2.0"
   },
   "peerDependencies": {
     "tslib": "^2.0.0",

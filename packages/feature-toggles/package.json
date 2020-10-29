@@ -1,13 +1,13 @@
 {
   "name": "@etrigan/feature-toggles",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Etrigan feature toggles",
   "main": "dist/index.js",
   "repository": "https://github.com/sevenwestmedia-labs/etrigan",
   "author": "Seven West Media WA",
   "license": "MIT",
   "dependencies": {
-    "@etrigan/feature-toggles-client": "1.1.5"
+    "@etrigan/feature-toggles-client": "1.1.6"
   },
   "peerDependencies": {
     "tslib": "^2.0.0",
