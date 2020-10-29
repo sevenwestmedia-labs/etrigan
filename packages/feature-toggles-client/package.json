@@ -1,13 +1,13 @@
 {
   "name": "@etrigan/feature-toggles-client",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "APIs to make it easier to work with feature states in both the browser and node",
   "main": "dist/index.js",
   "repository": "https://github.com/sevenwestmedia-labs/etrigan",
   "author": "Seven West Media WA",
   "license": "MIT",
   "dependencies": {
-    "@etrigan/feature-toggles": "1.1.4"
+    "@etrigan/feature-toggles": "1.2.0"
   },
   "peerDependencies": {
     "tslib": "^2.0.0",

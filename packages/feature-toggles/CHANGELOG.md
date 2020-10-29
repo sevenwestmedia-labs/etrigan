@@ -1,5 +1,15 @@
 # @etrigan/feature-toggles
 
+## 1.2.0
+
+### Minor Changes
+
+- 26418a5: Allow the feature updater to return null which will skip writing the feature state file and just use the existing values
+
+### Patch Changes
+
+- @etrigan/feature-toggles-client@1.1.6
+
 ## 1.1.4
 
 ### Patch Changes
