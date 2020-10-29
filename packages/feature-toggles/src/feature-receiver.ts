@@ -4,7 +4,7 @@ import { FeatureMessage } from './feature-updater'
 
 export class FeatureReceiver {
     constructor(private logger: Logger, public featureState: RawFeatureValues) {
-        process.on('message', this.featuresChanged)
+        process.on('message', this.featuresChanged.bind(this))
     }
 
     featuresChanged(message: FeatureMessage): void {
