@@ -1,4 +1,5 @@
 import { RawFeatureValues } from '@etrigan/feature-toggles-client'
+import { raw } from 'express'
 import { Logger, noopLogger } from 'typescript-log'
 import { FeatureUpdater } from './feature-updater'
 import {
@@ -18,7 +19,8 @@ export interface FeatureUpdaterOptions {
 
     log?: Logger
 
-    getFeatures(log: Logger): Promise<RawFeatureValues>
+    /** @returns null when unable to fetch features, will just use values from feature state file if it exists */
+    getFeatures(log: Logger): Promise<RawFeatureValues | null>
 
     /**
      * If specified, will subscribe to changes and notify workers when the toggles change
@@ -32,7 +34,7 @@ export async function createFeatureUpdater(
     options: FeatureUpdaterOptions,
 ): Promise<FeatureUpdater> {
     const { log = noopLogger(), featureStateFile, getFeatures, subscribeToChanges } = options
-    let initialFeatureState: RawFeatureValues | undefined
+    let initialFeatureState: RawFeatureValues | undefined | null
     try {
         initialFeatureState = await getFeatures(log)
     } catch (err) {
@@ -75,7 +77,7 @@ async function updatedHandler(
     featureUpdater: FeatureUpdater,
 ) {
     log.debug(`Processing features changed notification`)
-    let rawFeatureValues: RawFeatureValues
+    let rawFeatureValues: RawFeatureValues | null | undefined
     try {
         if (newFeatures) {
             rawFeatureValues = newFeatures
@@ -88,15 +90,17 @@ async function updatedHandler(
         return
     }
 
-    log.debug(
-        { featureStateFile: options.featureStateFile },
-        `Writing new feature state to feature state file`,
-    )
-    try {
-        await writeFeatureFile(options.featureStateFile, rawFeatureValues, log)
-    } catch (err) {
-        log.error({ err }, 'Failed to write feature file')
-    }
+    if (rawFeatureValues) {
+        log.debug(
+            { featureStateFile: options.featureStateFile },
+            `Writing new feature state to feature state file`,
+        )
+        try {
+            await writeFeatureFile(options.featureStateFile, rawFeatureValues, log)
+        } catch (err) {
+            log.error({ err }, 'Failed to write feature file')
+        }
 
-    await featureUpdater.updateToggleState(rawFeatureValues)
+        await featureUpdater.updateToggleState(rawFeatureValues)
+    }
 }
