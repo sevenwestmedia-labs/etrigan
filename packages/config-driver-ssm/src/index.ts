@@ -32,6 +32,7 @@ export const parameterStoreConfigDriver = {
 
         const { Parameters } = await client.getParameters({
             Names: params.map(p => `${path.replace(/\/$/, '')}/${p}`),
+            WithDecryption: true,
         }).promise()
 
         for (const Parameter of Parameters || []) {
