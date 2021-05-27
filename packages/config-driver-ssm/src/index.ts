@@ -15,7 +15,7 @@ export class ParameterStoreError extends EtriganError {
  * Creates a config driver for AWS SSM Parameter Store
  *
  * Driver connection string format:
- * ssm://<path> region=<region>
+ * ssm://<csv of param keys> region=<region>
  */
 export const parameterStoreConfigDriver = {
     protocol: 'ssm',
