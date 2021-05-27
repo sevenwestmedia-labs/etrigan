@@ -15,12 +15,12 @@ export class ParameterStoreError extends EtriganError {
  * Creates a config driver for AWS SSM Parameter Store
  *
  * Driver connection string format:
- * ssm://<path> region=<region>
+ * ssm://<csv of param keys> region=<region>
  */
 export const parameterStoreConfigDriver = {
     protocol: 'ssm',
     async read<T>(
-        path: string,
+        params: string[],
         region: string | undefined,
         logger: Logger = noopLogger(),
     ): Promise<Record<string, any>> {
@@ -30,66 +30,40 @@ export const parameterStoreConfigDriver = {
         kmsConfig.region = region
 
         const output: ConfigMap = {}
-        let nextToken: string | undefined
-        do {
-            logger.debug(`Fetching configuration from AWS Parameter Store: ${path}`)
-            const result = await new Promise<SSM.GetParametersByPathResult>((resolve, reject) => {
-                const client = new SSM(ssmConfig)
-                client.getParametersByPath(
-                    {
-                        Path: path,
-                        WithDecryption: true,
-                        NextToken: nextToken,
-                    },
-                    (err, data) => {
-                        if (err) {
-                            reject(new ParameterStoreError(`Cannot get parameters by path`, err))
-                        } else {
-                            resolve(data)
-                        }
-                    },
-                )
-            })
-            if (!result.Parameters) {
-                break
+        const client = new SSM(ssmConfig)
+        const { Parameters } = await client.getParameters({ Names: params }).promise()
+        for (const Parameter of Parameters || []) {
+            const paramName = Parameter.Name!
+
+            switch (Parameter.Type) {
+                case 'String':
+                case 'StringList':
+                    output[paramName] = Parameter.Value
+                    logger.debug(`Loaded ${paramName} = "${Parameter.Value}"`)
+                    break
+
+                case 'SecureString':
+                    output[paramName] = Parameter.Value
+                    // obscure secrets unless undefined or empty:
+                    logger.debug(
+                        `Loaded ${paramName} = "${
+                            Parameter.Value ? '**********' : Parameter.Value
+                        }"`,
+                    )
+                    break
+
+                default:
+                    throw new ParameterStoreError(
+                        `Unrecognized parameter data type: ${Parameter.Type}`,
+                    )
             }
-            nextToken = result.NextToken
-            logger.debug(
-                `Retrieved ${result.Parameters.length} parameters from AWS Parameter Store`,
-            )
+        }
 
-            for (const param of result.Parameters) {
-                if (param.Name && param.Value) {
-                    const key = param.Name.substr(path.length)
-                    switch (param.Type) {
-                        case 'String':
-                        case 'StringList':
-                            output[key] = param.Value
-                            logger.debug(`Loaded ${key} = "${param.Value}"`)
-                            break
-
-                        case 'SecureString':
-                            output[key] = param.Value
-                            // obscure secrets unless undefined or empty:
-                            logger.debug(
-                                `Loaded ${key} = "${param.Value ? '**********' : param.Value}"`,
-                            )
-                            break
-
-                        default:
-                            throw new ParameterStoreError(
-                                `Unrecognized parameter data type: ${param.Type}`,
-                            )
-                    }
-                }
-            }
-        } while (nextToken)
-        logger.debug(`No more parameters`)
         return output
     },
     async fromConnectionString(config: string): Promise<Record<string, any>> {
         const directives = config.split(' ')
-        const path = directives.shift() || ''
+        const paramsList = directives.shift() || ''
         let region: string | undefined = undefined
         directives.forEach(directive => {
             const [key, val] = directive.split('=')
@@ -103,6 +77,6 @@ export const parameterStoreConfigDriver = {
             }
         })
 
-        return await parameterStoreConfigDriver.read(path, region)
+        return await parameterStoreConfigDriver.read(paramsList.split(','), region)
     },
 }

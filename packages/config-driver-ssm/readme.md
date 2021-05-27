@@ -11,7 +11,9 @@ import { parameterStoreConfigDriver } from '@etrigan/config-driver-ssm'
 registerDriver(parameterStoreConfigDriver)
 
 const config = loadConfig<Config>({
-    values: await getConfigRecords('ssm://my-app/dev/ region=ap-southeast-2'),
+    values: await getConfigRecords(
+        'ssm:///my-app/dev/param1,/my-app/dev/param2 region=ap-southeast-2',
+    ),
     validateConfig: {
         val: 'required-string',
         secret: 'required-string',
@@ -33,7 +35,7 @@ The key name should be in lower-camel case, as per typical Javascript naming.
 
 When an application starts, it should use the Etrigan library to connect to the Parameter Store and read all configuration keys for a given prefix. Etrigan can be configured to read the desired prefix with the following environment variable:
 
-`CONFIG_DRIVER="ssm://<environment>/<application>/ region=ap-southeast-2"`
+`CONFIG_DRIVER="ssm:///<environment>/<application>/ region=ap-southeast-2"`
 
 ## IAM Policies
 
