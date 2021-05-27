@@ -1,5 +1,11 @@
 # @etrigan/config-driver-ssm
 
+## 2.0.0
+
+### Major Changes
+
+- 4610882: Changed use of getparamsbypath to getparams to allow a higher number of calls to parameter store
+
 ## 1.0.0
 
 ### Major Changes
