@@ -1,6 +1,6 @@
 {
   "name": "@etrigan/config-driver-ssm",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Etrigan Config driver for AWS SSM Parameter Store",
   "main": "dist/index.js",
   "repository": "https://github.com/sevenwestmedia-labs/etrigan",
