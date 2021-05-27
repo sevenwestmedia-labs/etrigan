@@ -1,5 +1,11 @@
 # @etrigan/config-driver-ssm
 
+## 2.1.0
+
+### Minor Changes
+
+- cc153b1: fetch parameters with decryption
+
 ## 2.0.1
 
 ### Patch Changes
