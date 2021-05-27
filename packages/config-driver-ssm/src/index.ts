@@ -3,7 +3,6 @@ import { ConfigMap } from '@etrigan/config'
 import { Logger, noopLogger } from 'typescript-log'
 
 import SSM from 'aws-sdk/clients/ssm'
-import KMS from 'aws-sdk/clients/kms'
 
 export class ParameterStoreError extends EtriganError {
     constructor(message: string, innerError?: Error) {
@@ -20,20 +19,27 @@ export class ParameterStoreError extends EtriganError {
 export const parameterStoreConfigDriver = {
     protocol: 'ssm',
     async read<T>(
+        path: string,
         params: string[],
         region: string | undefined,
         logger: Logger = noopLogger(),
     ): Promise<Record<string, any>> {
-        const ssmConfig: SSM.ClientConfiguration = {}
-        const kmsConfig: KMS.ClientConfiguration = {}
-        ssmConfig.region = region
-        kmsConfig.region = region
 
         const output: ConfigMap = {}
-        const client = new SSM(ssmConfig)
-        const { Parameters } = await client.getParameters({ Names: params }).promise()
+        const client = new SSM({
+            region,
+        })
+
+        const { Parameters } = await client.getParameters({
+            Names: params.map(p => `${path.replace(/\/$/, '')}/${p}`),
+        }).promise()
+
         for (const Parameter of Parameters || []) {
-            const paramName = Parameter.Name!
+            const paramName = Parameter.Name?.replace(new RegExp(`^${path}/?`), '')
+
+            if (!paramName) {
+                continue
+            }
 
             switch (Parameter.Type) {
                 case 'String':
@@ -63,6 +69,7 @@ export const parameterStoreConfigDriver = {
     },
     async fromConnectionString(config: string): Promise<Record<string, any>> {
         const directives = config.split(' ')
+        const path = directives.shift() || ''
         const paramsList = directives.shift() || ''
         let region: string | undefined = undefined
         directives.forEach(directive => {
@@ -77,6 +84,6 @@ export const parameterStoreConfigDriver = {
             }
         })
 
-        return await parameterStoreConfigDriver.read(paramsList.split(','), region)
+        return await parameterStoreConfigDriver.read(path, paramsList.split(','), region)
     },
 }

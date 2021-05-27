@@ -11,9 +11,7 @@ import { parameterStoreConfigDriver } from '@etrigan/config-driver-ssm'
 registerDriver(parameterStoreConfigDriver)
 
 const config = loadConfig<Config>({
-    values: await getConfigRecords(
-        'ssm:///my-app/dev/param1,/my-app/dev/param2 region=ap-southeast-2',
-    ),
+    values: await getConfigRecords('ssm:///my-app/dev param1,param2 region=ap-southeast-2'),
     validateConfig: {
         val: 'required-string',
         secret: 'required-string',
