@@ -30,37 +30,32 @@ export const parameterStoreConfigDriver = {
         kmsConfig.region = region
 
         const output: ConfigMap = {}
-        for (const paramName of params) {
-            const client = new SSM(ssmConfig)
-            const { Parameter } = await client
-                .getParameter({
-                    Name: paramName,
-                })
-                .promise()
+        const client = new SSM(ssmConfig)
+        const { Parameters } = await client.getParameters({ Names: params }).promise()
+        for (const Parameter of Parameters || []) {
+            const paramName = Parameter.Name!
 
-            if (Parameter) {
-                switch (Parameter.Type) {
-                    case 'String':
-                    case 'StringList':
-                        output[paramName] = Parameter.Value
-                        logger.debug(`Loaded ${paramName} = "${Parameter.Value}"`)
-                        break
+            switch (Parameter.Type) {
+                case 'String':
+                case 'StringList':
+                    output[paramName] = Parameter.Value
+                    logger.debug(`Loaded ${paramName} = "${Parameter.Value}"`)
+                    break
 
-                    case 'SecureString':
-                        output[paramName] = Parameter.Value
-                        // obscure secrets unless undefined or empty:
-                        logger.debug(
-                            `Loaded ${paramName} = "${
-                                Parameter.Value ? '**********' : Parameter.Value
-                            }"`,
-                        )
-                        break
+                case 'SecureString':
+                    output[paramName] = Parameter.Value
+                    // obscure secrets unless undefined or empty:
+                    logger.debug(
+                        `Loaded ${paramName} = "${
+                            Parameter.Value ? '**********' : Parameter.Value
+                        }"`,
+                    )
+                    break
 
-                    default:
-                        throw new ParameterStoreError(
-                            `Unrecognized parameter data type: ${Parameter.Type}`,
-                        )
-                }
+                default:
+                    throw new ParameterStoreError(
+                        `Unrecognized parameter data type: ${Parameter.Type}`,
+                    )
             }
         }
 
