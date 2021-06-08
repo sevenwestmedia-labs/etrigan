@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 3.2.0
+
+### Minor Changes
+
+- 67b9f52: Add pino timestamp generator sumoTimestamp
+
 ## 3.1.0
 
 ### Minor Changes
