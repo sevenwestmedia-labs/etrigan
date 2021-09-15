@@ -1,5 +1,15 @@
 # @etrigan/feature-toggles
 
+## 1.3.0
+
+### Minor Changes
+
+- d519bfd: Allow FeatureUpdater to be used similarly to FeatureReceiver to enable usage in a non-clustered approach
+
+### Patch Changes
+
+- @etrigan/feature-toggles-client@1.1.7
+
 ## 1.2.0
 
 ### Minor Changes
