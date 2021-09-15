@@ -20,6 +20,10 @@ export class FeatureUpdater extends EventEmitter {
         this.featureValues = initialFeatureState
     }
 
+    get featureState(): RawFeatureValues {
+        return this.featureValues
+    }
+
     async updateToggleState(featureValues: RawFeatureValues): Promise<void> {
         this.featureValues = featureValues
         this.log.debug({ featureValues: this.featureValues }, `New feature set received`)
