@@ -15,7 +15,7 @@
         "@types/pino-multi-stream": "^5.1.0",
         "@types/supertest": "^2.0.10",
         "@types/uuid": "^8.3.0",
-        "aws-sdk": "^2.780.0",
+        "aws-sdk": "^2.814.0",
         "console-stream": "^0.1.1",
         "express": "^4.17.1",
         "jest": "^26.6.1",
