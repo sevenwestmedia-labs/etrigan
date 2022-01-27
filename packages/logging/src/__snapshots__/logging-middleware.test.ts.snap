@@ -35,12 +35,3 @@ Array [
 ",
 ]
 `;
-
-exports[`logs requests when accounting for samplingOverrides 1`] = `
-Array [
-  "{\\"level\\":20,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"baseUrl\\":\\"/\\",\\"path\\":\\"app-login/\\",\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"msg\\":\\"begin request\\"}
-",
-  "{\\"level\\":30,\\"requestId\\":\\"testRequest1\\",\\"req\\":{\\"query\\":{},\\"baseUrl\\":\\"/\\",\\"path\\":\\"app-login/\\",\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"res\\":{\\"req\\":{\\"query\\":{},\\"baseUrl\\":\\"/\\",\\"path\\":\\"app-login/\\",\\"requestId\\":\\"testRequest1\\",\\"caller\\":\\"custom API caller\\",\\"log\\":{},\\"startTime\\":12345},\\"endTime\\":12345},\\"responseTime\\":0,\\"msg\\":\\"end request\\"}
-",
-]
-`;
