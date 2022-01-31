@@ -115,11 +115,13 @@ export function expressRequestLoggingMiddleware(
 
         if ('debug_log' in req.query && !disableDebugQueryString) {
             ;(childOptions as any).level = 'debug'
-        } 
+        }
+        // If there are samplingOverrideRoutes defined AND the current route matches one of the defined override routes...
         else if(loggerSamplingOverride && overrideSampler)
         {
             setLevel(childOptions, loggerSamplingOverride[overrideSampler].debugPercentage, loggerSamplingOverride[overrideSampler].infoPercentage)
         }
+        // Otherwise use the normal sampling percentages instead.
         else if (sampling)
         {
             setLevel(childOptions, sampling.debugPercentage, sampling.infoPercentage)
