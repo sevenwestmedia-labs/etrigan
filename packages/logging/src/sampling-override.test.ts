@@ -16,7 +16,7 @@ describe('Tests for samplingOverride', () => {
 
     const middleware = expressRequestLoggingMiddleware(log, {
         loggerSamplingOverride: {
-            'capp-login': {
+            'app-login': {
                 debugPercentage: 0,
                 infoPercentage: 100,
             }
@@ -26,6 +26,7 @@ describe('Tests for samplingOverride', () => {
             debugPercentage: 1
         }
     })
+
 
     beforeAll(() => {
         app.use(middleware)
@@ -55,5 +56,7 @@ describe('Tests for samplingOverride', () => {
 
     it('Successfully overrides the default sampling percentage when an appropriate route is hit', async () => {
         await agent(app).get('/app-login')
+
+        expect(true)
     })
 })
