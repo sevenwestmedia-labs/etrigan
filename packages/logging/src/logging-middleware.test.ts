@@ -1,53 +1,52 @@
 import pino from 'pino'
 
 import { expressRequestLoggingMiddleware } from './'
-
 it('logs requests', async () => {
-        const logs: string[] = []
-        const events: { [event: string]: () => any } = {}
-        const log = pino(
-            {
-                level: 'debug',
-                timestamp: false,
-                base: {},
+    const logs: string[] = []
+    const events: { [event: string]: () => any } = {}
+    const log = pino(
+        {
+            level: 'debug',
+            timestamp: false,
+            base: {},
+        },
+        {
+            write(msg) {
+                logs.push(msg)
             },
-            {
-                write(msg) {
-                    logs.push(msg)
-                },
-            },
-        )
-        const middleware = expressRequestLoggingMiddleware(log, {
-            createRequestId() {
-                return '<requestid>'
-            },
-            now() {
-                return 12345
-            },
-        })
-        const res = {
-            on(event: string, cb: () => any) {
-                events[event] = cb.bind(res)
-            },
-            removeListener(event: string) {
-                delete events[event]
-            },
-        }
-        middleware(
-            {
-                header() {
-                    return undefined
-                },
-                query: {},
-            } as any,
-            res as any,
-            () => {},
-        )
-        events.finish()
-
-        expect(logs).toMatchSnapshot()
-        expect(Object.keys(events).length).toBe(0)
+        },
+    )
+    const middleware = expressRequestLoggingMiddleware(log, {
+        createRequestId() {
+            return '<requestid>'
+        },
+        now() {
+            return 12345
+        },
     })
+    const res = {
+        on(event: string, cb: () => any) {
+            events[event] = cb.bind(res)
+        },
+        removeListener(event: string) {
+            delete events[event]
+        },
+    }
+    middleware(
+        {
+            header() {
+                return undefined
+            },
+            query: {},
+        } as any,
+        res as any,
+        () => {},
+    )
+    events.finish()
+
+    expect(logs).toMatchSnapshot()
+    expect(Object.keys(events).length).toBe(0)
+ })
 
 it('logs API caller headers', async () => {
     const logs: string[] = []
