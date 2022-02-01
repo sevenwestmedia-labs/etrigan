@@ -110,7 +110,7 @@ export function expressRequestLoggingMiddleware(
         const childOptions = { requestId: req.requestId }
 
         // To see if we will be overriding the base sampler.
-        const fullPath = req.baseUrl + req.path
+        const fullPath = req.path
         const overrideSampler = loggerSamplingOverride && Object.keys(loggerSamplingOverride).find((path) => fullPath.includes(path))
 
         if ('debug_log' in req.query && !disableDebugQueryString) {
