@@ -1,5 +1,11 @@
 # @etrigan/logging
 
+## 3.3.0
+
+### Minor Changes
+
+- 98588d8: Adding loggerSamplingOverride option to logger
+
 ## 3.2.0
 
 ### Minor Changes
