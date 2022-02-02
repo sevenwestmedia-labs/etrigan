@@ -21,15 +21,19 @@ declare global {
     }
 }
 
+interface samplingPercentages
+{
+    debugPercentage: number
+    infoPercentage: number
+}
+
 export interface LoggingMiddlewareOptions {
     disableDebugQueryString?: boolean
     createRequestId?: () => string
     now?: () => number
 
-    sampling?: {
-        debugPercentage: number
-        infoPercentage: number
-    }
+    sampling?: samplingPercentages
+    loggerSamplingOverride?: Record<string, samplingPercentages>      // This allows us to specify a specific path whereby we want to include a specific percentage of logs and not use the default.
 }
 
 export function expressRequestLoggingMiddleware(
@@ -39,6 +43,7 @@ export function expressRequestLoggingMiddleware(
         createRequestId = uuidv4,
         now = Date.now,
         sampling,
+        loggerSamplingOverride
     }: LoggingMiddlewareOptions = {},
 ): express.RequestHandler {
     return loggingMiddleware
@@ -74,6 +79,24 @@ export function expressRequestLoggingMiddleware(
         log.info({ req: this.req!, res: this, responseTime }, 'end request - connection closed')
         log.emitAndStopBuffering()
     }
+
+    function setLevel(
+        childOptions: {
+            requestId: string
+        },
+        debugPercentage: number,
+        infoPercentage: number
+    )
+    {
+        const threshold = Math.random() * 100
+        if (threshold < debugPercentage) {
+            ;(childOptions as any).level = 'debug'
+        } else if (threshold < infoPercentage) {
+            ;(childOptions as any).level = 'info'
+        }
+    }
+
+
     function loggingMiddleware(
         req: express.Request,
         res: express.Response,
@@ -85,15 +108,23 @@ export function expressRequestLoggingMiddleware(
             req.caller = caller
         }
         const childOptions = { requestId: req.requestId }
+
+        // To see if we will be overriding the base sampler.
+        const fullPath = req.path
+        const overrideSampler = loggerSamplingOverride && Object.keys(loggerSamplingOverride).find((path) => fullPath.includes(path))
+
         if ('debug_log' in req.query && !disableDebugQueryString) {
             ;(childOptions as any).level = 'debug'
-        } else if (sampling) {
-            const threshold = Math.random() * 100
-            if (threshold < sampling.debugPercentage) {
-                ;(childOptions as any).level = 'debug'
-            } else if (threshold < sampling.infoPercentage) {
-                ;(childOptions as any).level = 'info'
-            }
+        }
+        // If there are samplingOverrideRoutes defined AND the current route matches one of the defined override routes...
+        else if(loggerSamplingOverride && overrideSampler)
+        {
+            setLevel(childOptions, loggerSamplingOverride[overrideSampler].debugPercentage, loggerSamplingOverride[overrideSampler].infoPercentage)
+        }
+        // Otherwise use the normal sampling percentages instead.
+        else if (sampling)
+        {
+            setLevel(childOptions, sampling.debugPercentage, sampling.infoPercentage)
         }
 
         req.log = logEscalator(log.child(childOptions))

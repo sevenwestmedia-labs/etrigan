@@ -46,7 +46,7 @@ it('logs requests', async () => {
 
     expect(logs).toMatchSnapshot()
     expect(Object.keys(events).length).toBe(0)
-})
+ })
 
 it('logs API caller headers', async () => {
     const logs: string[] = []
