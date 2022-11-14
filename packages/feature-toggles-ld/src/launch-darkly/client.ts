@@ -1,11 +1,11 @@
-import LaunchDarkly from 'launchdarkly-node-server-sdk'
-import { RawFeatureValues } from '@etrigan/feature-toggles-client'
+import { LDClient, LDFeatureStore, LDLogger, init } from 'launchdarkly-node-server-sdk'
+import { RawFeatureValues } from '../../../feature-toggles-client'
 import { Logger } from 'typescript-log'
 
 export const serverSideRenderUser = { key: 'server-side-render' }
 
 export const allToggles = async (
-    ldClient: LaunchDarkly.LDClient,
+    ldClient: LDClient,
     logger: Logger,
 ): Promise<RawFeatureValues> => {
     const results = await ldClient.allFlagsState(serverSideRenderUser)
@@ -20,12 +20,12 @@ export const allToggles = async (
 export function initialiseLaunchDarklyClient(
     sdkKey: string,
     logger: Logger,
-    featureStore: LaunchDarkly.LDFeatureStore,
-): Promise<LaunchDarkly.LDClient> {
+    featureStore: LDFeatureStore,
+): Promise<LDClient> {
     logger.debug(`Initialising launch darkly client with key ${sdkKey}`)
-    return new Promise<LaunchDarkly.LDClient>((resolve, reject) => {
+    return new Promise<LDClient>((resolve, reject) => {
         // Downgrade 'Connection closed, reconnecting' message to info
-        const loggerWithoutReconnErrors: LaunchDarkly.LDLogger = {
+        const loggerWithoutReconnErrors: LDLogger = {
             error: (...args: any[]) => {
                 const reconnecting = 'Connection closed, reconnecting'
                 if ((args && args[0] === reconnecting) || args[1] === reconnecting) {
@@ -38,7 +38,7 @@ export function initialiseLaunchDarklyClient(
             debug: (...args: any[]) => (logger.debug as any)(...args),
         }
 
-        const ldClient = LaunchDarkly.init(sdkKey, {
+        const ldClient = init(sdkKey, {
             logger: loggerWithoutReconnErrors,
             featureStore,
         })
@@ -68,8 +68,8 @@ const maxDelayMs = 5 * 60 * 1000 // 5 minutes
 export async function getLaunchDarklyClientWithRetry(
     sdkKey: string,
     logger: Logger,
-    featureStore: LaunchDarkly.LDFeatureStore,
-): Promise<LaunchDarkly.LDClient> {
+    featureStore: LDFeatureStore,
+): Promise<LDClient> {
     let prevDelayMs = 0
     let currentDelayMs = 100
 
@@ -84,9 +84,10 @@ export async function getLaunchDarklyClientWithRetry(
                 prevDelayMs = currentDelayMs
                 currentDelayMs = newDelay
             }
+            const error = err instanceof Error ? err : new Error(err ? err.toString() : 'Unknown error')
 
             logger.error(
-                { err },
+                { err: error },
                 `Failed to initialise launch darkly, waiting for ${currentDelayMs}ms before trying again`,
             )
             await new Promise(resolve => setTimeout(resolve, currentDelayMs))
