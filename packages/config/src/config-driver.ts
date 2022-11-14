@@ -57,10 +57,11 @@ export async function getConfigRecords(
         const values = await driver.fromConnectionString(driverConfig)
         return values
     } catch (err) {
-        if (ConfigDriverError.isInstance(err)) {
+        const error = err instanceof Error ? err : new Error(err ? err.toString() : 'Unknown error')
+        if (ConfigDriverError.isInstance(error)) {
             throw err
         }
-        throw new ConfigDriverError(`Cannot load ${driverProtocol} driver`, err)
+        throw new ConfigDriverError(`Cannot load ${driverProtocol} driver`, error)
     }
 }
 

@@ -7,7 +7,7 @@ import { ConfigMap } from '../load-config'
 export function createEnvDriverConnectionString<T extends ConfigMap>(
     variableNames: Record<keyof T, string>,
 ): string {
-    const envKeys = Object.keys(variableNames) as Array<keyof typeof variableNames>
+    const envKeys = Object.keys(variableNames)
     return `env://${envKeys.reduce((acc, val) => {
         if (acc !== '') {
             acc += ';'
