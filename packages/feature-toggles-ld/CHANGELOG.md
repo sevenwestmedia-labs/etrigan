@@ -1,5 +1,17 @@
 # @etrigan/feature-toggles
 
+## 2.0.0
+
+### Major Changes
+
+- 1b6dddc: Update launch darkly sdk major version, and bump several other deps.
+
+### Patch Changes
+
+- Updated dependencies [1b6dddc]
+  - @etrigan/feature-toggles@2.0.0
+  - @etrigan/feature-toggles-client@1.1.8
+
 ## 1.1.7
 
 ### Patch Changes
