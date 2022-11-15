@@ -1,5 +1,12 @@
 # @etrigan/feature-toggles
 
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies [1b6dddc]
+  - @etrigan/feature-toggles@2.0.0
+
 ## 1.1.6
 
 ### Patch Changes
