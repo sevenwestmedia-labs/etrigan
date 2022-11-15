@@ -38,7 +38,8 @@ export async function createFeatureUpdater(
     try {
         initialFeatureState = await getFeatures(log)
     } catch (err) {
-        log.error({ err }, 'Error fetching toggles')
+        const error = err instanceof Error ? err : new Error(err ? err.toString() : 'Unknown error')
+        log.error({ err: error }, 'Error fetching toggles')
     }
 
     if (initialFeatureState) {
@@ -86,7 +87,9 @@ async function updatedHandler(
             rawFeatureValues = await options.getFeatures(log)
         }
     } catch (err) {
-        log.error({ err }, 'Failed to fetch new features')
+        const error = err instanceof Error ? err : new Error(err ? err.toString() : 'Unknown error')
+
+        log.error({ err: error }, 'Failed to fetch new features')
         return
     }
 
@@ -98,7 +101,9 @@ async function updatedHandler(
         try {
             await writeFeatureFile(options.featureStateFile, rawFeatureValues, log)
         } catch (err) {
-            log.error({ err }, 'Failed to write feature file')
+            const error = err instanceof Error ? err : new Error(err ? err.toString() : 'Unknown error')
+
+            log.error({ err: error }, 'Failed to write feature file')
         }
 
         await featureUpdater.updateToggleState(rawFeatureValues)

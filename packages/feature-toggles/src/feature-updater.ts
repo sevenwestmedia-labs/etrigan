@@ -1,4 +1,4 @@
-import * as cluster from 'cluster'
+import cluster from 'cluster';
 import { Logger } from 'typescript-log'
 import { EventEmitter } from 'events'
 import { RawFeatureValues } from '@etrigan/feature-toggles-client'
@@ -37,7 +37,7 @@ export class FeatureUpdater extends EventEmitter {
             features: this.featureValues,
         }
 
-        if (workerId) {
+        if (workerId && cluster.workers) {
             this.log.debug(`Sending features to worker ${workerId}`)
             const worker = cluster.workers[workerId]
             if (worker) {

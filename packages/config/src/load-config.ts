@@ -10,8 +10,8 @@ export type ValidateConfigItem = (
     value: any,
 ) =>
     | {
-          valid: false
-      }
+        valid: false
+    }
     | { valid: true; parsedValue: any }
 
 export type SupportedValidations = {
@@ -147,7 +147,7 @@ export function loadConfig<TConfig extends ConfigMap>(options: {
     }
 
     // validateConfig requires all keys to be defined
-    Object.keys(options.validateConfig).forEach((key: keyof typeof options.validateConfig) => {
+    Object.keys(options.validateConfig).forEach((key) => {
         const validationType: ValidationType = options.validateConfig[key]
         const validationFunction: ValidateConfigItem =
             typeof validationType === 'function' ? validationType : validationItems[validationType]
@@ -163,7 +163,7 @@ export function loadConfig<TConfig extends ConfigMap>(options: {
         }
 
         // We assign parsed value to ensure the value is the right type at runtime
-        config[key] = validationResult.parsedValue
+        config[key as keyof typeof options.validateConfig] = validationResult.parsedValue
     })
 
     return config
