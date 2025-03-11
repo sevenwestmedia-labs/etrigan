@@ -1,31 +1,36 @@
-export interface FeatureValue {
-    raw: any
+export interface FeatureValue<TValue = any> {
+    raw: TValue
     string(): string
     boolean(): boolean
 }
 
+/**
+ * Augment this interface at a global-level to improve the typing of returned features.
+ * https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+ */
 export interface RawFeatureValues {
     [feature: string]: unknown
 }
+
 /**
  * Current state of the feature toggles
  */
-export interface FeatureState {
-    [feature: string]:
+export type FeatureState = {
+    [key in keyof RawFeatureValues]?:
         | {
-              value: FeatureValue
+              value: FeatureValue<RawFeatureValues[key]>
 
               /** User overridable */
               canUserOverride: boolean
 
-              userOverride?: FeatureValue
+              userOverride?: FeatureValue<RawFeatureValues[key]>
           }
         | undefined
 }
 
-export function isFeatureEnabled<Features extends string>(
+export function isFeatureEnabled<TKey extends keyof RawFeatureValues>(
     toggles: FeatureState,
-    feature: Features,
+    feature: TKey,
     fallback = false,
 ): boolean {
     const featureState = toggles[feature]
