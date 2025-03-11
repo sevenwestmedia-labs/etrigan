@@ -1,6 +1,6 @@
 {
     "name": "@etrigan/feature-toggles-ld",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Etrigan feature toggles adapter for Launch Darkly",
     "main": "dist/index.js",
     "repository": "https://github.com/sevenwestmedia-labs/etrigan",
@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "launchdarkly-node-server-sdk": "^6.0.0",
-        "@etrigan/feature-toggles": "2.0.0",
-        "@etrigan/feature-toggles-client": "1.1.8"
+        "@etrigan/feature-toggles": "2.0.1",
+        "@etrigan/feature-toggles-client": "1.2.0"
     }
 }

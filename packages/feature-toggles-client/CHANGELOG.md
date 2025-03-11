@@ -1,5 +1,15 @@
 # @etrigan/feature-toggles
 
+## 1.2.0
+
+### Minor Changes
+
+- 0267564: Improve typings via module augmentation.
+
+### Patch Changes
+
+- @etrigan/feature-toggles@2.0.1
+
 ## 1.1.8
 
 ### Patch Changes
