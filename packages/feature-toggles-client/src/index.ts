@@ -16,7 +16,7 @@ export interface RawFeatureValues {
  * Current state of the feature toggles
  */
 export type FeatureState = {
-    [key in keyof RawFeatureValues]:
+    [key in keyof RawFeatureValues]?:
         | {
               value: FeatureValue<RawFeatureValues[key]>
 
