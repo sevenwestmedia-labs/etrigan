@@ -1,5 +1,11 @@
 # @etrigan/feature-toggles
 
+## 1.1.8
+
+### Patch Changes
+
+- @etrigan/feature-toggles@2.0.1
+
 ## 1.1.7
 
 ### Patch Changes
